@@ -21,3 +21,17 @@
 *.i*86
 *.x86_64
 *.hex
+*.suo
+Sdks/DotNet/Metis.ClientSdk/Metis.ClientSdk/bin/
+Sdks/DotNet/Metis.ClientSdk/Metis.ClientSdk/obj/
+Sdks/DotNet/Metis.ClientSdk/Metis.TestSite/bin/
+Sdks/DotNet/Metis.ClientSdk/Metis.TestSite/obj/
+Sdks/DotNet/Metis.ClientSdk/packages/
+Sdks/DotNet/Metis.ClientSdkConsole/bin/
+Sdks/DotNet/Metis.ClientSdkTest/bin/
+Sdks/DotNet/Metis.ClientSdkTest/obj/
+Sdks/DotNet/Metis.DemoSite/bin/
+Sdks/DotNet/Metis.DemoSite/obj/
+Sdks/DotNet/Metis.LogProvider/packages/
+Sdks/DotNet/Metis.LogProvider/Metis.LogProvider/obj/
+Sdks/DotNet/Metis.ClientSdkConsole/obj/

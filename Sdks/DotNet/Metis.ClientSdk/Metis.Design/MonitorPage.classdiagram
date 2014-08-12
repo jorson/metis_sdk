@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="1b9be9f5-f4ef-4bac-bc5e-e7eac2718511" name="MonitorPage" linkedPackageId="4da82a4f-9386-4df8-83a3-bc1336e28d3a" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="eef6b0be-10aa-4a72-aae9-e9d9c500c7db">
+      <profileInstance Id="bf8b713f-1301-4255-88f9-87399e957475" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="1bf35c50-a431-40cf-8a84-8b6a50bb5233">
+      <profileInstance Id="bbbea2f6-ce53-41b4-96bb-b273b4571e4a" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="6af919d7-a227-4bd6-9552-b9a145a904e8" name="PerformanceMonitor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a45cbb8f-9e9b-4483-913d-32f3017290e6" />
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="85777fd9-37d8-415c-b119-4f69b51b1ace" name="AbstraceMonitor" isAbstract="true" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="52c89c4c-6c3d-453b-af83-e2eb144d4205" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="c46d0f06-3043-445e-ae6a-263f45cada85" name="MonitorSetting" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="72c1dcba-3445-438a-856e-aa1cd06a922a" />
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="b47d6e00-9efe-464d-ad80-6da39b26732a" name="MonitorResult" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="15d27707-108c-4ed3-ad62-6e7508d76508" />
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="83f0b46c-3b74-47fc-aaa5-892bfeeab6ac" name="MonitorFactory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f47e179e-32fd-4208-89f8-26f5d0811e21" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="9a114fd5-a5ec-407b-b8e1-0ea63aa0c3d8" name="ApiMonitor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="36c3569b-99ee-454e-9142-d61dc39dfb67" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c06ecdc7-b0f5-4dd9-94fc-aa3bd1aecee6" name="ApiMonitorSetting" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d2998785-e7bf-400c-8c26-393d0fb28933" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="56cfdc41-f7ac-4a2d-9733-e626625e4306" name="ApiMonitorResult" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f200ed89-4a3e-49f6-af57-86176f2fdf26" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="045ce3b9-23e8-4aff-ab2a-ed68b0aef824" name="RequestFrequency" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8f4b5175-034c-4a66-a449-cf161565d988" />
+        <ownedAttributesInternal>
+          <property Id="aa5c2165-188e-4b19-8fa4-04ceb875674d" name="触发频率" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="25749e32-8189-4216-b046-dbe0df43f1ad" />
+          </property>
+          <property Id="347c15a6-eac8-4afc-96e0-5e6df94e9889" name="周期范围" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="72701695-cb44-46d9-9a4b-5284b4cc7269" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="4da82a4f-9386-4df8-83a3-bc1336e28d3a" name="Metis.Design">
+    <elementDefinition Id="be7f648a-800a-4d75-b178-b2e479b7a3ca" />
+  </package>
+</logicalClassDesignerModel>

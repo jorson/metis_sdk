@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5bc21c12-79a9-465b-9962-1756cb0fb632" name="MetisJobAgent" linkedPackageId="355d722e-222b-487a-9b14-15ccdc0a590e" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="6a692d9d-38e6-4253-bb81-b5839e69c479">
+      <profileInstance Id="f561b563-c9ce-4363-a296-b048e9903acf" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="050288be-2da8-49e0-85b7-4fbc75057580">
+      <profileInstance Id="57cc0d64-916a-4fe4-8332-81f5851907f7" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c2cc13c2-6f47-4398-a4ea-66148361aa19" name="Job" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ba849942-a4ce-48d5-875e-19106a66c266" />
+        <ownedAttributesInternal>
+          <property Id="1579e94e-abbd-48ab-aaca-e75865e7436e" name="当前执行任务" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bbd111c1-7ffb-4e60-a316-dcc483c81272" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="322e60b3-6ef6-485a-8fe8-9845c44d58c0" name="停止作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e5d9df3d-0124-4ed1-9af1-8ceecffa6726" />
+          </operation>
+          <operation Id="6802b17b-5b2a-4a37-beb7-7069ddf633c7" name="启动作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bcbb5010-3d0b-47c5-8d2c-e26c63327236" />
+          </operation>
+          <operation Id="9cdf701d-1cdd-47a4-97e6-43ec68b105e4" name="从指定步骤启动作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f8e9360b-adbe-44a2-a391-afb0990fc3e0" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7342202f-020b-459c-b9d7-02ef940a1c92" name="任务ID" direction="In" isUnique="false">
+                  <elementDefinition Id="51fc7396-d697-4d48-989f-516a33da51af" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="51f1d1e3-f7cb-4c6a-964c-a5055e80e392" name="查看执行历史" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="43f87d43-c7e2-47d5-a3a5-3394a4ce14a0" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="1343e149-1e45-4934-b2c2-d087c1a70bd7" name="Task" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9104fb73-c5de-4778-8ec7-7a38565be0e6" />
+        <ownedOperationsInternal>
+          <operation Id="cbdb968e-3041-4b1e-8069-10a7ed1e3e1d" name="获取任务配置" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="64b9356a-9da0-4465-aaaf-470f81d89cb1" />
+          </operation>
+          <operation Id="2937cf02-7514-46b1-9441-15c762e95fa5" name="开始任务" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="6a28156a-8028-4247-91cb-5495cf87df7c" />
+          </operation>
+          <operation Id="fd3593af-ded8-4699-b82a-d8d10e8c5e96" name="准备任务" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="582d8319-0f6f-45bc-bd92-89f8801b99ac" />
+          </operation>
+          <operation Id="c5d524d7-ae00-4245-bb50-42823d11ae7d" name="清理" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="877b00c1-12b4-4e4b-b887-9e23e72840f9" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="09b6a250-10e7-4ddc-be82-fb7aade06d65" name="Schedule" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="098bf08f-550b-425c-b340-452a0d9708b3" />
+        <ownedAttributesInternal>
+          <property Id="a3b466fe-8b55-4526-9351-ed86d231f95b" name="开始日期" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="81182308-12af-4a7a-ba73-80a04c12eff7" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ddec0e01-5396-4123-89eb-b31e6626f8bf" LastKnownName="Datetime" />
+            </type_NamedElement>
+          </property>
+          <property Id="dd1e0468-7ca3-453a-9fe8-00424b65e6d6" name="结束日期" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="60bd3c1d-3a80-4bae-afd9-786fbf61cccd" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="99354264-66b9-4282-bb58-839497ea2fca" LastKnownName="Datetime" />
+            </type_NamedElement>
+          </property>
+          <property Id="59244da0-0166-47f8-84bf-7427d12c8004" name="从不结束" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="eea1def3-564d-45e0-a65b-ae216f7126d9" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ab522e7b-2af3-4637-9060-aebcbee2c9c7" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+          <property Id="3d8c526f-2951-436f-ac4f-adbb9fc05ba0" name="执行周期" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="aeae512a-fdda-44a6-904a-dd6151f39462" />
+          </property>
+          <property Id="543c4b71-876d-41c2-9039-c23982ad258f" name="不执行类型" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="96ee5b1b-3ab3-463a-bc75-f63a5261b6e2" />
+          </property>
+          <property Id="ee552403-e8cb-4ccb-a0cb-131bce83bc74" name="不执行时间序列" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7928ab4e-ee79-4e33-a067-aed208b5a617" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="741391a8-e9ea-49d4-a0ad-e5396b5cfe0c" name="是否需要执行" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="60c3fe18-1f7e-42c0-b6cd-dc089b206679" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="3fe900c0-855a-4c2f-82f0-8cc6000d9b4d" name="JobAgent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="958a64b0-6ae8-4dc0-a3db-e016c31b5bfa" />
+        <ownedOperationsInternal>
+          <operation Id="8e2c971b-0e87-461b-bca5-82827b338906" name="注册作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="074f827b-83f9-410f-94ba-b6a45ffe3149" />
+          </operation>
+          <operation Id="cf963b20-ac41-4344-a859-bbfcd774d29c" name="反注册作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8495e7c8-3448-441a-89cb-2c7a104dcf98" />
+          </operation>
+          <operation Id="dbc02fa2-5e64-48c0-bb47-d82037249c2c" name="禁用作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="444b3b2b-6ae6-4880-99bf-ae1d6f4741ae" />
+          </operation>
+          <operation Id="64a358fc-bcba-4bcb-905c-2b702cb01d16" name="获取作业" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="236d0f15-d51f-4273-951c-78bf0406d728" />
+          </operation>
+          <operation Id="e1714326-8677-4259-9e20-d4dd4286f571" name="启动代理" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="34761825-8a77-4e2b-b210-870e36debe58" />
+          </operation>
+          <operation Id="3676abcb-5f66-4537-8a1e-713c860c2cfe" name="停止代理" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="df0db136-0c40-43e5-9cb1-339d18ffc8d6" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="ab522e7b-2af3-4637-9060-aebcbee2c9c7" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ddec0e01-5396-4123-89eb-b31e6626f8bf" name="Datetime" isAbstract="false" isLeaf="false" cachedFullName="Datetime">
+        <elementDefinition Id="d8dda759-b2c4-419a-af8c-9480a6d6a234" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="99354264-66b9-4282-bb58-839497ea2fca" name="Datetime" isAbstract="false" isLeaf="false" cachedFullName="Datetime">
+        <elementDefinition Id="d8dda759-b2c4-419a-af8c-9480a6d6a234" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="355d722e-222b-487a-9b14-15ccdc0a590e" name="Metis.Design">
+    <elementDefinition Id="be7f648a-800a-4d75-b178-b2e479b7a3ca" />
+  </package>
+</logicalClassDesignerModel>

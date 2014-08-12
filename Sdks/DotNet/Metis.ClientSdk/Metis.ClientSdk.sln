@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk", "Metis.ClientSdk\Metis.ClientSdk.csproj", "{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkTest", "..\Metis.ClientSdkTest\Metis.ClientSdkTest.csproj", "{2F2DCC2A-69A5-401D-B128-E747938ED7EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkConsole", "..\Metis.ClientSdkConsole\Metis.ClientSdkConsole.csproj", "{DFD51C2C-42EA-43EB-B224-A37475577CDE}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Metis.Design", "Metis.Design\Metis.Design.modelproj", "{1A699136-E798-45E3-B7B1-3E823ED44848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.TestSite", "Metis.TestSite\Metis.TestSite.csproj", "{12505836-3F95-48A0-B086-323F44765622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.LogProvider", "..\Metis.LogProvider\Metis.LogProvider\Metis.LogProvider.csproj", "{E69B816F-0B8F-497D-884E-F657CE08A990}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2DCC2A-69A5-401D-B128-E747938ED7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2DCC2A-69A5-401D-B128-E747938ED7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2DCC2A-69A5-401D-B128-E747938ED7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2DCC2A-69A5-401D-B128-E747938ED7EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD51C2C-42EA-43EB-B224-A37475577CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD51C2C-42EA-43EB-B224-A37475577CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD51C2C-42EA-43EB-B224-A37475577CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD51C2C-42EA-43EB-B224-A37475577CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A699136-E798-45E3-B7B1-3E823ED44848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A699136-E798-45E3-B7B1-3E823ED44848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A699136-E798-45E3-B7B1-3E823ED44848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A699136-E798-45E3-B7B1-3E823ED44848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12505836-3F95-48A0-B086-323F44765622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12505836-3F95-48A0-B086-323F44765622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12505836-3F95-48A0-B086-323F44765622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12505836-3F95-48A0-B086-323F44765622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69B816F-0B8F-497D-884E-F657CE08A990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69B816F-0B8F-497D-884E-F657CE08A990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69B816F-0B8F-497D-884E-F657CE08A990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69B816F-0B8F-497D-884E-F657CE08A990}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

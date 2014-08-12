@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<metis.gatherer>
+  <common.setting>
+    <url value="http://192.168.72.166:8881/metis/" />
+    <host value="192.168.72.166:8881" />
+    <debug value="true" />
+  </common.setting>
+
+  <gatherer.apicall enabled="true">
+    <extendDataPrivoder value="Metis.DemoSite.Privoder.ApiCallGathererPrivoder, Metis.DemoSite" />
+    <useFilter value="true" />
+    <whiteList value="v1|v2|v3" />
+  </gatherer.apicall>
+
+  <gatherer.pagevisit enabled="false">
+    <extendDataPrivoder value="Metis.DemoSite.Privoder.VisitGathererPrivoder, Metis.DemoSite" />
+    <useFilter value="false" />
+  </gatherer.pagevisit>
+</metis.gatherer>
