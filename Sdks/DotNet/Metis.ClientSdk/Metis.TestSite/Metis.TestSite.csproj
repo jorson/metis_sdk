@@ -46,18 +46,6 @@
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Nd.Platform">
-      <HintPath>..\packages\Nd.Platform.1.0.126\lib\net40\Nd.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Nd.Resource">
-      <HintPath>..\packages\Nd.Resource.0.7\lib\net35\Nd.Resource.dll</HintPath>
-    </Reference>
-    <Reference Include="Nd.Tool">
-      <HintPath>..\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
-    </Reference>
-    <Reference Include="Nd.Web.Mvc">
-      <HintPath>..\packages\Nd.Web.Mvc.1.2.1\lib\net40\Nd.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -171,9 +159,6 @@
     <Folder Include="Areas\Visit\Models\" />
     <Folder Include="Areas\Visit\Views\Shared\" />
     <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\V1\Views\Web.config" />
