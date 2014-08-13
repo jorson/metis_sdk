@@ -37,3 +37,5 @@ Sdks/DotNet/Metis.LogProvider/Metis.LogProvider/obj/
 Sdks/DotNet/Metis.ClientSdkConsole/obj/
 *.pdb
 *.user
+Sdks/DotNet/Metis.ClientSdk.Common/obj/
+Sdks/DotNet/Metis.ClientSdk.Sender/obj/

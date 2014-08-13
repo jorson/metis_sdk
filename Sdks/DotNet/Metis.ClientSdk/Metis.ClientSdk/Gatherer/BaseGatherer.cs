@@ -31,6 +31,7 @@ namespace Metis.ClientSdk.Gatherer
         protected bool DebugRequest { get { return debugRequest; } }
         public abstract void BeginRequest();
         public abstract void EndRequest();
+        public abstract void ExceptionOccur();
         public abstract void Dispose();
         /// <summary>
         /// 获取URL中?之前的字符串

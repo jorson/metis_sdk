@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}</ProjectGuid>
+    <ProjectGuid>{E69B816F-0B8F-497D-884E-F657CE08A990}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Metis.ClientSdk</RootNamespace>
-    <AssemblyName>Metis.ClientSdk</AssemblyName>
+    <RootNamespace>Metis.ClientSdk.LogProvider</RootNamespace>
+    <AssemblyName>Metis.ClientSdk.LogProvider</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,12 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\Metis.ClientSdk\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,37 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigSection\GathererConfigNode.cs" />
-    <Compile Include="ConfigSection\GathererConfigurationException.cs" />
-    <Compile Include="ConfigSection\GathererSection.cs" />
-    <Compile Include="ConstVariables.cs" />
-    <Compile Include="Gatherer\ApiCallGatherer.cs" />
-    <Compile Include="Gatherer\BaseGatherer.cs" />
-    <Compile Include="Gatherer\Config\ApiCallGathererConfig.cs" />
-    <Compile Include="Gatherer\Config\BaseGathererConfig.cs" />
-    <Compile Include="Gatherer\Config\PageVisitGathererConfig.cs" />
-    <Compile Include="Gatherer\PageVisitGatherer.cs" />
-    <Compile Include="Entities\ExceptionEntity.cs" />
-    <Compile Include="Entities\PageVisitEntity.cs" />
-    <Compile Include="Entities\RegisterEntity.cs" />
-    <Compile Include="Entities\ResourceUseEntity.cs" />
-    <Compile Include="Filter\AllPassUrlFilter.cs" />
-    <Compile Include="Filter\BlacklistUrlFilter.cs" />
-    <Compile Include="Filter\IUrlFilter.cs" />
-    <Compile Include="Filter\WhitelistUrlFilter.cs" />
-    <Compile Include="Gatherer\UnhandleExceptionGatherer.cs" />
-    <Compile Include="HttpModule\GathererModule.cs" />
-    <Compile Include="IGathererDataPrivoder.cs" />
-    <Compile Include="Logger\GathererLogger.cs" />
-    <Compile Include="Entities\ApiCallEntity.cs" />
-    <Compile Include="GathererContext.cs" />
-    <Compile Include="LogSender.cs" />
+    <Compile Include="Appender\ComboAppender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
       <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
       <Name>Metis.ClientSdk.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
+      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
+      <Name>Metis.ClientSdk.Sender</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

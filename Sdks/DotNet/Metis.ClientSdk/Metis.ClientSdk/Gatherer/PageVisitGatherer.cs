@@ -102,5 +102,9 @@ namespace Metis.ClientSdk.Gatherer
         public override void Dispose()
         {
         }
+        public override void ExceptionOccur()
+        {
+            throw new NotSupportedException();
+        }
     }
 }

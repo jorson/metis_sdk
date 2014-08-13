@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E69B816F-0B8F-497D-884E-F657CE08A990}</ProjectGuid>
+    <ProjectGuid>{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Metis.LogProvider</RootNamespace>
-    <AssemblyName>Metis.LogProvider</AssemblyName>
+    <RootNamespace>Metis.ClientSdk.Common</RootNamespace>
+    <AssemblyName>Metis.ClientSdk.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,10 +42,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\GaeaHttpClient.cs" />
+    <Compile Include="Client\InnerWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Counter\AtomicCounter.cs" />
+    <Compile Include="Counter\Counter32.cs" />
+    <Compile Include="Counter\Counter64.cs" />
+    <Compile Include="Extends\CollectionExtend.cs" />
+    <Compile Include="Extends\EnumerableExtend.cs" />
+    <Compile Include="Extends\HttpContextExtend.cs" />
+    <Compile Include="Extends\HttpRequestExtend.cs" />
+    <Compile Include="Extends\HttpResponseExtend.cs" />
+    <Compile Include="Extends\StringExtend.cs" />
+    <Compile Include="IBatchAppender.cs" />
+    <Compile Include="ISingleSender.cs" />
+    <Compile Include="LogEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="readme.txt" />
+    <Compile Include="Reflection\DelegateAccessor.cs" />
+    <Compile Include="Reflection\FastActivator.cs" />
+    <Compile Include="Reflection\TypeAccessor.cs" />
+    <Compile Include="Utility\Arguments.cs" />
+    <Compile Include="Utility\ArgumentString.cs" />
+    <Compile Include="Utility\ConfigHelper.cs" />
+    <Compile Include="Utility\CsvSerializer.cs" />
+    <Compile Include="Utility\IpAddress.cs" />
+    <Compile Include="Utility\StreamWatcher.cs" />
+    <Compile Include="Utility\UriPath.cs" />
+    <Compile Include="Utility\WebServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

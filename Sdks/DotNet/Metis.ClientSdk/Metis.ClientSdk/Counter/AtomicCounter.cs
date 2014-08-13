@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Metis.ClientSdk.Counter
 {
-    public class AtomicCounter
+    internal class AtomicCounter
     {
         private static AtomicCounter instance;
 

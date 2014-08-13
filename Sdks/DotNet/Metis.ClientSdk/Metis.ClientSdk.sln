@@ -13,7 +13,11 @@ Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Metis.Design", "Metis.Desig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.TestSite", "Metis.TestSite\Metis.TestSite.csproj", "{12505836-3F95-48A0-B086-323F44765622}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.LogProvider", "..\Metis.LogProvider\Metis.LogProvider\Metis.LogProvider.csproj", "{E69B816F-0B8F-497D-884E-F657CE08A990}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.LogProvider", "..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj", "{E69B816F-0B8F-497D-884E-F657CE08A990}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Sender", "..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj", "{5C9293DD-37A9-458E-8D39-FCE11BB566D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Common", "..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj", "{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{E69B816F-0B8F-497D-884E-F657CE08A990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E69B816F-0B8F-497D-884E-F657CE08A990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E69B816F-0B8F-497D-884E-F657CE08A990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9293DD-37A9-458E-8D39-FCE11BB566D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9293DD-37A9-458E-8D39-FCE11BB566D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9293DD-37A9-458E-8D39-FCE11BB566D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9293DD-37A9-458E-8D39-FCE11BB566D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

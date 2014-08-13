@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Metis.ClientSdk.LogProvider")]
+[assembly: AssemblyTitle("Metis.ClientSdk.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Metis.LogProvider")]
+[assembly: AssemblyProduct("Metis.ClientSdk.Common")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("89fc826b-b0fd-4b67-8dee-ca52fe9fe83c")]
+[assembly: Guid("cfc3bafb-f99d-49e4-8f6f-f1b4d54f8917")]
 
 // 程序集的版本信息由下面四个值组成: 
 //
@@ -34,3 +34,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: InternalsVisibleTo("Metis.ClientSdk")]
+[assembly: InternalsVisibleTo("Metis.ClientSdk.Sender")]
+[assembly: InternalsVisibleTo("Metis.LogProvider")]

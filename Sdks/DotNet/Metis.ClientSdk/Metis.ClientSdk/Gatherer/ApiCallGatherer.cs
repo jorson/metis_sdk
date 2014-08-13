@@ -132,6 +132,10 @@ namespace Metis.ClientSdk.Gatherer
                 callUrl, context.Response.StatusCode,
                 responseTime: duration, requestSize: requestSize, responseSize: responseSize);
         }
+        public override void ExceptionOccur()
+        {
+            throw new NotSupportedException();
+        }
         public override void Dispose()
         {
             if (!config.IsEnabled)
