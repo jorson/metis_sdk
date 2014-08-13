@@ -8,7 +8,7 @@ namespace System.Linq
     /// <summary>
     /// 字符扩展
     /// </summary>
-    public static class StringExtend
+    internal static class StringExtend
     {
         /// <summary>
         /// 指示指定的字符串是 null、空还是仅由空白字符组成。

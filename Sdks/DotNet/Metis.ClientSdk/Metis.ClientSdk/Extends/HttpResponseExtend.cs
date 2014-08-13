@@ -5,7 +5,7 @@ using System.Text;
 
 namespace System.Web
 {
-    public static class HttpResponseExtend
+    internal static class HttpResponseExtend
     {
         public static string GetCombineHeaders(this HttpResponse response, bool asRaw)
         {

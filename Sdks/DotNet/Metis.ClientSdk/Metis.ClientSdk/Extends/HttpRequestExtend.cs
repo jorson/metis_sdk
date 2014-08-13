@@ -7,7 +7,7 @@ using System.Web;
 
 namespace System.Web
 {
-    public static class HttpRequestExtend
+    internal static class HttpRequestExtend
     {
         /// <summary>
         /// 获取Request的Size

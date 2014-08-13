@@ -51,6 +51,10 @@
     <Compile Include="ConfigSection\GathererConfigurationException.cs" />
     <Compile Include="ConfigSection\GathererSection.cs" />
     <Compile Include="ConstVariables.cs" />
+    <Compile Include="Counter\AtomicCounter.cs" />
+    <Compile Include="Counter\Counter32.cs" />
+    <Compile Include="Counter\Counter64.cs" />
+    <Compile Include="Extends\CollectionExtend.cs" />
     <Compile Include="Gatherer\ApiCallGatherer.cs" />
     <Compile Include="Gatherer\BaseGatherer.cs" />
     <Compile Include="Gatherer\Config\ApiCallGathererConfig.cs" />
@@ -70,7 +74,6 @@
     <Compile Include="Filter\WhitelistUrlFilter.cs" />
     <Compile Include="HttpModule\GathererModule.cs" />
     <Compile Include="IGathererDataPrivoder.cs" />
-    <Compile Include="MvcFilter\CompressAttribute.cs" />
     <Compile Include="Utility\ArgumentString.cs" />
     <Compile Include="Logger\GathererLogger.cs" />
     <Compile Include="Utility\IpAddress.cs" />

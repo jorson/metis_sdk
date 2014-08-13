@@ -6,7 +6,7 @@ using System.Text;
 
 namespace System.Web
 {
-    public static class HttpContextExtend
+    internal static class HttpContextExtend
     {
         static Func<object, object> handler;
 

@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace System.Linq
 {
-    public static class EnumerableExtend
+    internal static class EnumerableExtend
     {
         public static void ForEachG<T>(this IEnumerable<T> items, Action<T> action)
         {
