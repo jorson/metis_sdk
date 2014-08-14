@@ -22,7 +22,6 @@ namespace Metis.DemoSite.Areas.V1.Controllers
         /// </summary>
         /// <param name="clientTime">客户端时间</param>
         /// <returns></returns>
-        [Nd.Web.Mvc.Compress]
         [ActionName("servertime")]
         public object GetServerTime()
         {

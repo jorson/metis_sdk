@@ -7,7 +7,7 @@ namespace Metis.ClientSdk.Sender
 {
     internal class LocalAndHttpSender : ISingleSender
     {
-        public void Prepare(IDictionary<string, string> map)
+        public void Prepare(IDictionary<string, object> map)
         {
             throw new NotImplementedException();
         }

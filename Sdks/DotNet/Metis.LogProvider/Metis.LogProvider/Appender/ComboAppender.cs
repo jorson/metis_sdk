@@ -16,6 +16,7 @@ namespace Metis.ClientSdk.LogProvider
         public ComboAppender()
             : base()
         {
+            Init();
         }
         /// <summary>
         /// 本地日志的发送者
@@ -48,15 +49,18 @@ namespace Metis.ClientSdk.LogProvider
 
         protected override void Append(LoggingEvent loggingEvent)
         { 
-            throw new NotImplementedException();
+            SysLogEntity entry = new SysLogEntity();
+            entry.TryParseLoggingEvent(loggingEvent);
+            remoteSender.DoAppend(entry);
+            localSender.DoAppend(entry);
         }
 
         public virtual void Clear()
         {
-
-
         }
-
+        /// <summary>
+        /// 初始化Appender对象
+        /// </summary>
         private void Init()
         {
             Arguments.NotNullOrWhiteSpace(LocalSender, "LocalSender");
