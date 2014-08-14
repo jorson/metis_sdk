@@ -51,7 +51,6 @@
     <Compile Include="Counter\Counter64.cs" />
     <Compile Include="Entities\ApiCallEntity.cs" />
     <Compile Include="Entities\ExceptionEntity.cs" />
-    <Compile Include="Entities\LogLevel.cs" />
     <Compile Include="Entities\PageVisitEntity.cs" />
     <Compile Include="Entities\RegisterEntity.cs" />
     <Compile Include="Entities\ResourceUseEntity.cs" />

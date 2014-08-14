@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 
 namespace Metis.ClientSdk.Entities
 {
-    internal class SysLogEntity : Metis.ClientSdk.Entities.LogEntity
+    public class SysLogEntity : Metis.ClientSdk.Entities.LogEntity
     {
         //日志等级
         private LogLevel logLevel = LogLevel.INFO;
@@ -22,16 +22,14 @@ namespace Metis.ClientSdk.Entities
         {
             this.LogType = "syslog";
         }
-        public LogLevel LogLevel { get { return logLevel; } internal set { logLevel = value; } }
-        public string Logger { get { return logger; } internal set { logger = value; } }
-        public string LogMessage { get { return logMessage; } internal set { logMessage = value; } }
-        public string CallInfo { get { return callInfo; } internal set { callInfo = value; } }
-
-        
+        public LogLevel LogLevel { get { return logLevel; } set { logLevel = value; } }
+        public string Logger { get { return logger; } set { logger = value; } }
+        public string LogMessage { get { return logMessage; } set { logMessage = value; } }
+        public string CallInfo { get { return callInfo; } set { callInfo = value; } }
     }
 
     [Serializable]
-    internal class CallStack
+    public class CallStack
     {
         public string AbsolutePath { get; set; }
         public string ReferrerUrl { get; set; }

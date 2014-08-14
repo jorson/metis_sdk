@@ -84,7 +84,7 @@ namespace Metis.ClientSdk.LogProvider
         {
             //本地的Sender不是必须的
             //Arguments.NotNullOrWhiteSpace(LocalSender, "LocalSender");
-            Arguments.NotNullOrWhiteSpace(RemoteSender, "RemoteSender");
+            Nd.Tool.Arguments.NotNullOrWhiteSpace(RemoteSender, "RemoteSender");
             try
             {
                 //初始化Sender对象

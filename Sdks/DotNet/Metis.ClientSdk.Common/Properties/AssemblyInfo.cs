@@ -36,4 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("Metis.ClientSdk")]
 [assembly: InternalsVisibleTo("Metis.ClientSdk.Sender")]
-[assembly: InternalsVisibleTo("Metis.ClientSdk.LogProvider")]
+//[assembly: InternalsVisibleTo("Metis.ClientSdk.LogProvider")]

@@ -33,7 +33,11 @@
     <Reference Include="log4net">
       <HintPath>..\..\Metis.ClientSdk\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Nd.Tool">
+      <HintPath>ExtendDll\Nd.Tool.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -45,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appender\ComboAppender.cs" />
+    <Compile Include="Entitis\SysLogEntityExtend.cs" />
+    <Compile Include="Log4NetLog.cs" />
+    <Compile Include="Log4NetLogFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +67,7 @@
       <Name>Metis.ClientSdk.Sender</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entitis\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

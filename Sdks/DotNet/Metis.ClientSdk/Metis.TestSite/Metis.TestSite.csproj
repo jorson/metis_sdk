@@ -146,6 +146,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="readme.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
