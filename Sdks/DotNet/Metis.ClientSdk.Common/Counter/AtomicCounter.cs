@@ -37,40 +37,40 @@ namespace Metis.ClientSdk.Counter
         {
             get { return mapCounter32.Count + mapCounter64.Count; }
         }
-        public void Increase32(string key)
+        public int Increase32(string key)
         {
             var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k));
-            counter.Increment();
+            return counter.Increment();
         }
         public void Decrease32(string key)
         {
             var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k));
             counter.Decrement();
         }
-        public void Increase32(string key, Int32 num)
+        public int Increase32(string key, Int32 num)
         {
             var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k));
-            counter.Increment(num);
+            return counter.Increment(num);
         }
         public void Decrease32(string key, Int32 num)
         {
             var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k));
             counter.Decrement(num);
         }
-        public void Increase64(string key)
+        public long Increase64(string key)
         {
             var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k));
-            counter.Increment();
+            return counter.Increment();
         }
         public void Decrease64(string key)
         {
             var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k));
             counter.Decrement();
         }
-        public void Increase64(string key, Int64 num)
+        public long Increase64(string key, Int64 num)
         {
             var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k));
-            counter.Increment(num);
+            return counter.Increment(num);
         }
         public void Decrease64(string key, Int64 num)
         {

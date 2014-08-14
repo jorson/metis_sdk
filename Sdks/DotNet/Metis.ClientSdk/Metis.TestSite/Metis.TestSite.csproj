@@ -121,6 +121,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Logger\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Logger\LoggerAreaRegistration.cs" />
     <Compile Include="Areas\V1\Controllers\OAuthController.cs" />
     <Compile Include="Areas\V1\V1AreaRegistration.cs" />
     <Compile Include="Areas\Visit\Controllers\VisitController.cs" />
@@ -157,6 +159,8 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Logger\Models\" />
+    <Folder Include="Areas\Logger\Views\Shared\" />
     <Folder Include="Areas\V1\Models\" />
     <Folder Include="Areas\V1\Views\Shared\" />
     <Folder Include="Areas\Visit\Models\" />
@@ -198,6 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\metis.log4net.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Logger\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,41 +1,26 @@
-﻿using System;
+﻿using log4net.Core;
+using Metis.ClientSdk.Entities;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
-using log4net.Core;
 using System.Web;
-using System.Collections.Specialized;
 using System.Web.Script.Serialization;
 
-namespace Metis.ClientSdk.LogProvider
+namespace Metis.ClientSdk.Entities
 {
-    internal class SysLogEntity : Metis.ClientSdk.Entities.LogEntity
+    public static class SysLogEntityExtend
     {
         /// <summary>
         /// 序列化器
         /// </summary>
         private static readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-        //日志等级
-        private LogLevel logLevel = LogLevel.INFO;
-        //日志记录者
-        private string logger = String.Empty;
-        //日志消息
-        private string logMessage = String.Empty;
-        //调用堆栈
-        private string callInfo = String.Empty;
-        public SysLogEntity()
-        {
-            this.LogType = "syslog";
-        }
-        public LogLevel LogLevel { get { return logLevel; } protected set { logLevel = value; } }
-        public string Logger { get { return logger; } protected set { logger = value; } }
-        public string LogMessage { get { return logMessage; } protected set { logMessage = value; } }
-        public string CallInfo { get { return callInfo; } protected set { callInfo = value; } }
         /// <summary>
         /// 将log4j的日志事件转换为SysLogEntity对象
         /// </summary>
-        public void TryParseLoggingEvent(LoggingEvent logEvent)
+        public static void TryParseLoggingEvent(this SysLogEntity entry, LoggingEvent logEvent)
         {
             if (logEvent == null)
             {
@@ -43,11 +28,11 @@ namespace Metis.ClientSdk.LogProvider
             }
             LoggingEventData data = logEvent.GetLoggingEventData();
             //日志事件的消息
-            this.logMessage = data.Message;
+            entry.LogMessage = data.Message;
             //日志事件级别
-            TransLogLevel(logEvent.Level);
+            TransLogLevel(entry, logEvent.Level);
             //记录者名称
-            this.logger = data.LoggerName;
+            entry.Logger = data.LoggerName;
             CallStack callStack = new CallStack();
             GetContextInfo(callStack);
             //设置调用信息
@@ -56,30 +41,33 @@ namespace Metis.ClientSdk.LogProvider
                 GetExceptionInfo(callStack, logEvent.ExceptionObject);
             }
             //序列化对象
-            this.callInfo = serializer.Serialize(callStack);
+            entry.CallInfo = serializer.Serialize(callStack);
         }
+
         /// <summary>
         /// 转换日志级别
         /// </summary>
-        private void TransLogLevel(log4net.Core.Level level)
+        private static void TransLogLevel(SysLogEntity entry, log4net.Core.Level level)
         {
             if (level == log4net.Core.Level.Debug)
-                this.logLevel = LogProvider.LogLevel.DEBUG;
+                entry.LogLevel = LogLevel.DEBUG;
             else if (level == log4net.Core.Level.Info)
-                this.logLevel = LogProvider.LogLevel.INFO;
+                entry.LogLevel = LogLevel.INFO;
             else if (level == log4net.Core.Level.Warn)
-                this.logLevel = LogProvider.LogLevel.WARN;
+                entry.LogLevel = LogLevel.WARN;
             else if (level == log4net.Core.Level.Error)
-                this.logLevel = LogProvider.LogLevel.ERROR;
+                entry.LogLevel = LogLevel.ERROR;
             else if (level == log4net.Core.Level.Fatal)
-                this.logLevel = LogProvider.LogLevel.FATAL;
+                entry.LogLevel = LogLevel.FATAL;
         }
         /// <summary>
         /// 构建调用信息
         /// </summary>
-        private void GetContextInfo(CallStack callStack)
+        private static void GetContextInfo(CallStack callStack)
         {
             var context = HttpContext.Current;
+            if (!context.IsAvailable())
+                return;
 
             callStack.AbsolutePath = context.Request.Url.AbsolutePath;
             callStack.ReferrerUrl = context.Request.UrlReferrer == null ?
@@ -98,7 +86,7 @@ namespace Metis.ClientSdk.LogProvider
         /// <summary>
         /// 构建异常信息
         /// </summary>
-        private void GetExceptionInfo(CallStack callStack, Exception ex)
+        private static void GetExceptionInfo(CallStack callStack, Exception ex)
         {
             callStack.ExData = new CallStack.ExceptionData();
             callStack.ExData.ExceptionType = ex.GetType().FullName;
@@ -123,32 +111,4 @@ namespace Metis.ClientSdk.LogProvider
             return string.Join("&", list);
         }
     }
-
-    [Serializable]
-    internal class CallStack
-    {
-        public string AbsolutePath { get; set; }
-        public string ReferrerUrl { get; set; }
-        public string QueryData { get; set; }
-        public string FormData { get; set; }
-        public UserIdentity User { get; set; }
-        public ExceptionData ExData { get; set; }
-        [Serializable]
-        public class ExceptionData
-        {
-            public string ExtendMessage { get; set; }
-            public string ExceptionType { get; set; }
-            public string CauseMethod { get; set; }
-            public string CauseSource { get; set; }
-            public string ErrorMessage { get; set; }
-            public string TraceStack { get; set; }
-        }
-        [Serializable]
-        public class UserIdentity
-        {
-            public string Name { get; set; }
-            public bool IsAuthenticated { get; set; }
-        }
-    }
-    
 }

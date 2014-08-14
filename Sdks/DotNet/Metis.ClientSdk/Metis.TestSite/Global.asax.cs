@@ -21,6 +21,9 @@ namespace Metis.DemoSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             Metis.ClientSdk.GathererContext.Setup();
+            string configPath =
+                Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["log4net.config"]);
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(configPath));
         }
     }
 }

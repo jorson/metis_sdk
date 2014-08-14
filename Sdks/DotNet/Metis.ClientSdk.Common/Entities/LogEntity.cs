@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Metis.ClientSdk.Entities
 {
-    public abstract class LogEntity
+    public abstract class LogEntity : ILogEntity
     {
         long ipAddress = 0;
         DateTime logDate = new DateTime();
@@ -42,9 +42,8 @@ namespace Metis.ClientSdk.Entities
                 if (property.PropertyType != typeof(String) &&
                     property.PropertyType != typeof(Int32) &&
                     property.PropertyType != typeof(Int64) &&
-                    property.PropertyType != typeof(DateTime) &&
-                    property.PropertyType.BaseType.Name.ToLower() != "enum")
-                    throw new NotSupportedException("日志实体中的属性只能是String, Int32, Int64, Datetime或枚举类型");
+                    property.PropertyType != typeof(DateTime))
+                    throw new NotSupportedException("日志实体中的属性只能是String, Int32, Int64, Datetime");
             }
         }
     }

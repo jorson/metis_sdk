@@ -1,4 +1,5 @@
-﻿using Metis.ClientSdk.Entities;
+﻿using Metis.ClientSdk.Counter;
+using Metis.ClientSdk.Entities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,11 +15,14 @@ namespace Metis.ClientSdk.Sender
     /// </summary>
     internal class TimerHttpSender : ISingleSender
     {
-        private const int MAX_NUMBER_LOGENTRY = 5000;
+        private const string COUNTER_KEY = "timer_http_sender";
+
+        private int maxLogEntry = 5000;
+        private int interval = 3;
 
         private readonly int batchSize = 200;
         private readonly int sendBatchSize = 500;
-        private readonly int interval = 3;
+        
         private readonly CsvSerializer serializer = new CsvSerializer();
 
         private Timer timer = null;
@@ -32,26 +36,31 @@ namespace Metis.ClientSdk.Sender
         public void Prepare(IDictionary<string, object> map)
         {
             if (!map.Keys.Contains("GathererPath"))
-            {
                 throw new ArgumentNullException("必须存在GathererPath的配置"); 
-            }
+
             this.gathererPath = map["GathererPath"].ToString();
             //设置HttpClient的参数
             object gathererHost = null;
             if (map.TryGetValue("GathererHost", out gathererHost))
-            {
                 httpClient.Host = gathererHost.ToString();
-            }
             httpClient.Headers.Add("charset", "utf-8");
+            //设置其他变量
+            object objMaxEntry = null;
+            if (map.TryGetValue("MaxQueueSize", out objMaxEntry))
+                Int32.TryParse(objMaxEntry.ToString(), out maxLogEntry);
+            object objInterval = null;
+            if (map.TryGetValue("SendInterval", out objInterval))
+                Int32.TryParse(objInterval.ToString(), out interval);
             //初始化Timer
             timer = new Timer(new TimerCallback(SendLogs), null, interval * 1000, interval * 1000);
         }
         public void DoAppend(LogEntity entry)
         {
             //当队列中的对象数量小于最大数量时
-            if (logList.Count < MAX_NUMBER_LOGENTRY)
+            if (logList.Count < maxLogEntry)
             {
                 logList.Enqueue(entry);
+                AtomicCounter.Instance.Increase32(COUNTER_KEY);
             }
         }
         internal void SendLogs(object sender)
@@ -116,7 +125,6 @@ namespace Metis.ClientSdk.Sender
             catch
             {
             }
-
         }
         private string GetRequestUrl(params string[] args)
         {

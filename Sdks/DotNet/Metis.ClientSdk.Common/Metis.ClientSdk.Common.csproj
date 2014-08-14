@@ -49,6 +49,13 @@
     <Compile Include="Counter\AtomicCounter.cs" />
     <Compile Include="Counter\Counter32.cs" />
     <Compile Include="Counter\Counter64.cs" />
+    <Compile Include="Entities\ApiCallEntity.cs" />
+    <Compile Include="Entities\ExceptionEntity.cs" />
+    <Compile Include="Entities\LogLevel.cs" />
+    <Compile Include="Entities\PageVisitEntity.cs" />
+    <Compile Include="Entities\RegisterEntity.cs" />
+    <Compile Include="Entities\ResourceUseEntity.cs" />
+    <Compile Include="Entities\SysLogEntity.cs" />
     <Compile Include="Extends\CollectionExtend.cs" />
     <Compile Include="Extends\EnumerableExtend.cs" />
     <Compile Include="Extends\HttpContextExtend.cs" />

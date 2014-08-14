@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.IO;
 
 namespace Metis.ClientSdkConsole
 {
@@ -40,13 +41,35 @@ namespace Metis.ClientSdkConsole
             //Console.WriteLine("121.207.105.15:" + IPToNumber("121.207.105.15"));
             //Console.WriteLine("255.255.255.255:" + IPToNumber("255.255.255.255"));
             //Console.WriteLine("0.0.0.0:" + IPToNumber("0.0.0.0"));
-            for (int i = 0; i < 5; i++)
-            {
-                Thread thread = new Thread(new ThreadStart(SendMessage));
-                thread.IsBackground = true;
-                thread.Start();
-            }
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Thread thread = new Thread(new ThreadStart(SendMessage));
+            //    thread.IsBackground = true;
+            //    thread.Start();
+            //}
+            AsyncWrite();
+            Console.WriteLine("This is Next Out Put");
             Console.Read();
+        }
+
+        static void AsyncWrite()
+        {
+            FileStream fs = new FileStream(@"C:\test.log", FileMode.Append,
+                FileAccess.Write, FileShare.ReadWrite, 4096, true);
+            IAsyncResult result = null;
+            for (int i = 0; i < 300; i++)
+            {
+                string inputString = String.Format("Write To File..{0}\r\n", i.ToString());
+                byte[] inputBytes = Encoding.Default.GetBytes(inputString);
+                result = fs.BeginWrite(inputBytes, 0, inputBytes.Length, new AsyncCallback((rt) =>
+                {
+                    if (rt.IsCompleted)
+                        Console.WriteLine("Write Complete");
+                }), null);
+                fs.EndWrite(result);
+            }
+            fs.Flush();
+            fs.Close();
         }
 
         static void BlockCollectionDemo()

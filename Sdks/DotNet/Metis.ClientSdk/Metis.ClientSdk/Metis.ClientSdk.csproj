@@ -53,10 +53,6 @@
     <Compile Include="Gatherer\Config\BaseGathererConfig.cs" />
     <Compile Include="Gatherer\Config\PageVisitGathererConfig.cs" />
     <Compile Include="Gatherer\PageVisitGatherer.cs" />
-    <Compile Include="Entities\ExceptionEntity.cs" />
-    <Compile Include="Entities\PageVisitEntity.cs" />
-    <Compile Include="Entities\RegisterEntity.cs" />
-    <Compile Include="Entities\ResourceUseEntity.cs" />
     <Compile Include="Filter\AllPassUrlFilter.cs" />
     <Compile Include="Filter\BlacklistUrlFilter.cs" />
     <Compile Include="Filter\IUrlFilter.cs" />
@@ -65,7 +61,6 @@
     <Compile Include="HttpModule\GathererModule.cs" />
     <Compile Include="IGathererDataPrivoder.cs" />
     <Compile Include="Logger\GathererLogger.cs" />
-    <Compile Include="Entities\ApiCallEntity.cs" />
     <Compile Include="GathererContext.cs" />
     <Compile Include="LogSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

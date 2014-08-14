@@ -32,13 +32,13 @@ namespace Metis.ClientSdk.Counter
                 return Interlocked.Read(ref counter);
             }
         }
-        internal void Increment()
+        internal long Increment()
         {
-            Interlocked.Increment(ref counter);
+            return Interlocked.Increment(ref counter);
         }
-        internal void Increment(Int64 num)
+        internal long Increment(Int64 num)
         {
-            Interlocked.Add(ref counter, num);
+            return Interlocked.Add(ref counter, num);
         }
         internal void Decrement()
         {

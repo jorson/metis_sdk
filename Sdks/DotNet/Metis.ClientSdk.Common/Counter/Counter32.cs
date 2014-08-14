@@ -23,13 +23,13 @@ namespace Metis.ClientSdk.Counter
 
         public string Key { get { return key; } }
         public Int32 Counter { get { return counter; } }
-        internal void Increment()
+        internal int Increment()
         {
-            Interlocked.Increment(ref counter);
+            return Interlocked.Increment(ref counter);
         }
-        internal void Increment(Int32 num)
+        internal int Increment(Int32 num)
         {
-            Interlocked.Add(ref counter, num);
+            return Interlocked.Add(ref counter, num);
         }
         internal void Decrement()
         {
