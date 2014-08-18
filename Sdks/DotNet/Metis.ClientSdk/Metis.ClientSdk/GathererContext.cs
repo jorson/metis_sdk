@@ -1,5 +1,6 @@
 ﻿using Metis.ClientSdk.ConfigSection;
 using Metis.ClientSdk.Entities;
+using Metis.ClientSdk.Sender;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -16,12 +17,17 @@ namespace Metis.ClientSdk
         static bool hasInited = false;
         //标记调试模式
         static bool isDebug = false;
+        //控制台是否可用
+        static bool consoleEnabled = false;
         //日志收集服务的路径
         static string gathererPath = String.Empty;
         //日志手机服务的主机
         static string gathererHost = String.Empty;
         //固定的终端ID
         static int terminalId = 1001;
+        //日志发送者; TODO: 这个东西先写在Context, 这样所有的Gatherer都必须用同一种Sender,
+        //这显然是反人类的, 后续重构考虑将Sender移到Gatherer
+        static ISingleSender sender;
 
         static GathererContext()
         {
@@ -37,6 +43,13 @@ namespace Metis.ClientSdk
 
             var strDebug = commonNode.TryGetNode("debug").Attributes["value"];
             Boolean.TryParse(strDebug, out isDebug);
+            var strConsoleEnable = commonNode.TryGetNode("console").Attributes["value"];
+            Boolean.TryParse(strConsoleEnable, out consoleEnabled);
+            //初始化Sender对象
+            var senderType = commonNode.TryGetNode("sender").Attributes["value"];
+            if (String.IsNullOrWhiteSpace(senderType))
+                throw new ArgumentException("缺少 common.setting/sender 配置项");
+            sender = SenderFactory.Instance.GetSender(senderType);
         }
         /// <summary>
         /// 以配置的方式初始化Gatherer的上下文
@@ -72,7 +85,11 @@ namespace Metis.ClientSdk
         /// <summary>
         /// 标记是否为Debug模式
         /// </summary>
-        public bool IsDebug { get { return isDebug; } }            
+        public bool IsDebug { get { return isDebug; } }
+        /// <summary>
+        /// 标记控制台是否可用
+        /// </summary>
+        public bool ConsoleEnabled { get { return consoleEnabled; } }
         /// <summary>
         /// 采集者的地址
         /// </summary>
@@ -120,7 +137,7 @@ namespace Metis.ClientSdk
                     accesstoken, registerMode));
             }
 
-            LogSender.Append(entry);
+            sender.DoAppend(entry);
         }
         /// <summary>
         /// 添加资源使用的日志
@@ -173,7 +190,7 @@ namespace Metis.ClientSdk
                         entry.CallTimestamp.ToString(),
                         entry.IpAddress));
                 }
-                LogSender.Append(entry);
+                sender.DoAppend(entry);
             }
             catch(Exception ex)
             {
@@ -223,7 +240,7 @@ namespace Metis.ClientSdk
                         accesstoken, entry.VisitPage,
                         entry.ReferPage, entry.CallTimestamp.ToString()));
                 }
-                LogSender.Append(entry);
+                sender.DoAppend(entry);
             }
             catch(Exception ex)
             {
@@ -242,7 +259,7 @@ namespace Metis.ClientSdk
         {
             ExceptionEntity entry = new ExceptionEntity(message, ex);
             entry.AccessToken = accesstoken;
-            LogSender.Append(entry);
+            sender.DoAppend(entry);
         }
         /// <summary>
         /// 添加自定义日志类型
@@ -250,7 +267,7 @@ namespace Metis.ClientSdk
         /// <param name="entry">自定义的日志实体,<see cref="LogEntity"/></param>
         public void Append(LogEntity entry)
         {
-            LogSender.Append(entry);
+            sender.DoAppend(entry);
         }
         #endregion 
 

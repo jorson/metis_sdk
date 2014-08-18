@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.IO;
+using System.Resources;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Metis.ClientSdkConsole
 {
@@ -47,9 +50,44 @@ namespace Metis.ClientSdkConsole
             //    thread.IsBackground = true;
             //    thread.Start();
             //}
-            AsyncWrite();
+            //AsyncWrite();
+            //ResourceManager resourceManager = new ResourceManager("Metis.ClientSdkConsole.Properties.Resources", Assembly.GetExecutingAssembly());
+            //object obj = resourceManager.GetObject("index");
+            //int v = 0;
+            //ConcurrentQueue<int> c = new ConcurrentQueue<int>();
+            //c.Enqueue(1);
+            //var array = c.ToArray();
+            //Console.WriteLine(array.Count());
+            //c.Enqueue(2);
+            //Console.WriteLine(c.Count);
+            //Console.WriteLine(array.Count());
+            //c.TryDequeue(out v);
+            //c.TryDequeue(out v);
+            
+            //Console.WriteLine(c.Count);
+            //Console.WriteLine(array.Count());
+
+            CancellationTokenSource cts = new CancellationTokenSource();
+            TaskFactory taskFactory = new TaskFactory(cts.Token);
+
+            for (int i = 0; i < 10; i++)
+            {
+                taskFactory.StartNew<int>(SendData, i);
+            }    
+
             Console.WriteLine("This is Next Out Put");
+            Thread.Sleep(100);
+            cts.Cancel();
             Console.Read();
+        }
+
+        private static int SendData(object data)
+        {
+            Console.WriteLine("Thread Data " + data);
+            Console.WriteLine("This is SendData" + Thread.CurrentThread.ManagedThreadId);
+            Thread.Sleep(3000);
+            Console.WriteLine("Thread Over" + Thread.CurrentThread.ManagedThreadId);
+            return 0;
         }
 
         static void AsyncWrite()

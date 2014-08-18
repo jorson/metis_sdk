@@ -51,14 +51,21 @@ namespace Metis.ClientSdk.Gatherer
         public PageVisitGatherer()
         {
             if (!HttpContext.Current.IsAvailable())
-                throw new ArgumentNullException("context");
-            this.context = HttpContext.Current;
+                throw new ArgumentNullException("application");
+            this.application = HttpContext.Current.ApplicationInstance;
         }
         /// <summary>
         /// 当前模块是否可用
         /// </summary>
         public bool IsEnabled { get { return config.IsEnabled; } }
-
+        public override string Name
+        {
+            get { return "页面访问信息采集者"; }
+        }
+        public override string Description
+        {
+            get { return "用于用户范围页面的信息"; }
+        }
         public override void BeginRequest()
         {
             if (!config.IsEnabled)
@@ -68,7 +75,7 @@ namespace Metis.ClientSdk.Gatherer
             if (((PageVisitGathererConfig)config).UseFilter && ((PageVisitGathererConfig)config).UrlFilter != null)
             {
                 //如果不是需要处理的URL
-                if (!((PageVisitGathererConfig)config).UrlFilter.IsAllowed(context.Request.RawUrl))
+                if (!((PageVisitGathererConfig)config).UrlFilter.IsAllowed(application.Request.RawUrl))
                 {
                     this.skipRequest = true;
                     return;
@@ -84,19 +91,19 @@ namespace Metis.ClientSdk.Gatherer
             //判断请求的类型
             //如果请求方法是get,contenttype中包含"text/html"且反馈代码为200
             //这类的请求被认为是页面访问
-            if (context.Request.RequestType.Equals("get", StringComparison.CurrentCultureIgnoreCase) &&
-               context.Response.ContentType.Contains(HTML_CONTENT) &&
-               context.Response.StatusCode == 200)
+            if (application.Request.RequestType.Equals("get", StringComparison.CurrentCultureIgnoreCase) &&
+               application.Response.ContentType.Contains(HTML_CONTENT) &&
+               application.Response.StatusCode == 200)
             {
                 if (config.ExtendDataPrivoder == null)
                     throw new ArgumentNullException("没有指定有效的ExtendDataPrivoder");
 
-                string visitPage = base.GetPureUrl(context.Request.RawUrl);
-                string referPage = context.Request.UrlReferrer == null ? "" :
-                    base.GetPureUrl(context.Request.UrlReferrer.AbsolutePath);
+                string visitPage = base.GetPureUrl(application.Request.RawUrl);
+                string referPage = application.Request.UrlReferrer == null ? "" :
+                    base.GetPureUrl(application.Request.UrlReferrer.AbsolutePath);
                 string accesstoken = config.ExtendDataPrivoder.GetAccesstoken();
 
-                GathererContext.Current.AppendPageVisit(accesstoken, visitPage, referPage, context.Request.QueryString);
+                GathererContext.Current.AppendPageVisit(accesstoken, visitPage, referPage, application.Request.QueryString);
             }
         }
         public override void Dispose()
@@ -105,6 +112,10 @@ namespace Metis.ClientSdk.Gatherer
         public override void ExceptionOccur()
         {
             throw new NotSupportedException();
+        }
+        internal static object GetCurrentSetting()
+        {
+            return null;
         }
     }
 }

@@ -13,8 +13,6 @@ namespace Metis.ClientSdk.Sender
     /// </summary>
     internal class LocalFileSender : ISingleSender
     {
-        const string COUNTER_KEY = "local_file_sender";
-
         private string logPrefix = "LocalLog_";
         private string logSuffix = ".log";
         private string rootPath = String.Empty;
@@ -76,12 +74,21 @@ namespace Metis.ClientSdk.Sender
             string record = serializer.Serialize(entry);
             record = String.Format("{0}\t{1}\r\n", entry.CallTimestamp.ToString("yyyy-MM-dd HH:mm:ss"), record);
             byte[] inputBytes = Encoding.Default.GetBytes(record);
-            IAsyncResult result = this.currentStream.BeginWrite(inputBytes, 0, inputBytes.Length,
-                new AsyncCallback((rt) =>
-                {
-                    AtomicCounter.Instance.Increase32(COUNTER_KEY);
-                }), null);
-            this.currentStream.EndWrite(result);
+            try
+            {
+                IAsyncResult result = this.currentStream.BeginWrite(inputBytes, 0, inputBytes.Length,
+                                        new AsyncCallback((rt) =>
+                                        {
+                                            if (rt.IsCompleted)
+                                                entry.Ack();
+                                        }), null);
+                this.currentStream.EndWrite(result);
+            }
+            catch
+            {
+                entry.Fail();
+            }
+
         }
         public void Clear()
         {

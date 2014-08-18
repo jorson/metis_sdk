@@ -13,6 +13,8 @@ namespace Metis.ClientSdk.Gatherer
     internal class ApiCallGatherer : BaseGatherer
     {
         public const string GATHERER_KEY = "__API_CALL_GATHERER__";
+        private static string gathererName = "API接口调用信息采集者";
+        private static string gathererDesc = "用于记录API站点接口被调用的次数, 响应时间等请求信息";
         Stopwatch watch;
         //是否跳过请求
         bool skipRequest = false;
@@ -47,12 +49,19 @@ namespace Metis.ClientSdk.Gatherer
                 }
             } 
         }
-
+        public override string Name
+        {
+            get { return gathererName; }
+        }
+        public override string Description
+        {
+            get { return gathererDesc; }
+        }
         protected ApiCallGatherer()
         {
             if (!HttpContext.Current.IsAvailable())
-                throw new ArgumentNullException("context");
-            this.context = HttpContext.Current;
+                throw new ArgumentNullException("application");
+            this.application = HttpContext.Current.ApplicationInstance;
             this.watch = new Stopwatch();
         }
         /// <summary>
@@ -74,7 +83,7 @@ namespace Metis.ClientSdk.Gatherer
             if (((ApiCallGathererConfig)config).UseFilter && ((ApiCallGathererConfig)config).UrlFilter != null)
             {
                 //如果不是需要处理的URL
-                if (!((ApiCallGathererConfig)config).UrlFilter.IsAllowed(context.Request.RawUrl))
+                if (!((ApiCallGathererConfig)config).UrlFilter.IsAllowed(application.Request.RawUrl))
                 {
                     this.skipRequest = true;
                     return;
@@ -84,8 +93,8 @@ namespace Metis.ClientSdk.Gatherer
             watch = new Stopwatch();
             watch.Start();
             ////添加输出流观察器
-            StreamWatcher streamWatcher = new StreamWatcher(context.Response.Filter, writeBytes);
-            context.Response.Filter = streamWatcher;
+            StreamWatcher streamWatcher = new StreamWatcher(application.Response.Filter, writeBytes);
+            application.Response.Filter = streamWatcher;
         }
         public override void EndRequest()
         {
@@ -103,21 +112,21 @@ namespace Metis.ClientSdk.Gatherer
             watch.Reset();
 
             //获取请求地址
-            string callUrl = base.GetPureUrl(context.Request.RawUrl);
-            long requestSize = context.Request.CountRequestSize();
+            string callUrl = base.GetPureUrl(application.Request.RawUrl);
+            long requestSize = application.Request.CountRequestSize();
             long responseSize = 0;
             //当IIS版本为IIS7和IIS8时
             if (IISVersion == WebServerType.IIS7 || IISVersion == WebServerType.IIS8)
             {
-                responseSize = context.Response.GetCombineHeaders(true).Length;
+                responseSize = application.Response.GetCombineHeaders(true).Length;
             }
 
-            if (context.Response.Filter is StreamWatcher)
+            if (application.Response.Filter is StreamWatcher)
             {
-                StreamWatcher watcher = (StreamWatcher)context.Response.Filter;
+                StreamWatcher watcher = (StreamWatcher)application.Response.Filter;
                 responseSize += watcher.Length;
             }
-            else if (context.Response.Filter is GZipStream || context.Response.Filter is DeflateStream)
+            else if (application.Response.Filter is GZipStream || application.Response.Filter is DeflateStream)
             {
                 this.writeBytes.ForEach(o => { responseSize += o; });
             }
@@ -129,7 +138,7 @@ namespace Metis.ClientSdk.Gatherer
             //推送数据
             GathererContext.Current.AppendApiCall(
                 accesstoken, callAccesstoken, callAppId,
-                callUrl, context.Response.StatusCode,
+                callUrl, application.Response.StatusCode,
                 responseTime: duration, requestSize: requestSize, responseSize: responseSize);
         }
         public override void ExceptionOccur()
@@ -141,7 +150,22 @@ namespace Metis.ClientSdk.Gatherer
             if (!config.IsEnabled)
                 return;
         }
-
+        internal static object GetCurrentSetting()
+        {
+            if (config == null)
+                return null;
+            ApiCallGathererConfig realConfig = (ApiCallGathererConfig)config;
+            return new
+            {
+                Name = gathererName,
+                Description = gathererDesc,
+                GathererEnabled = realConfig.IsEnabled,
+                FilterEnabled = realConfig.UseFilter,
+                FilterType = realConfig.UrlFilter.GetType().FullName,
+                Whitelist = realConfig.WhiteList,
+                ExtendDataPrivoder = realConfig.ExtendDataPrivoder.GetType().FullName
+            };
+        }
         /// <summary>
         /// 尝试从配置的扩展数据提供者对象中获取信息
         /// </summary>
@@ -183,25 +207,25 @@ namespace Metis.ClientSdk.Gatherer
         {
             string accessToken = String.Empty;
             //从QueryString里面获取
-            if (!String.IsNullOrEmpty(context.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN]))
+            if (!String.IsNullOrEmpty(application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN]))
             {
-                accessToken = context.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN];
+                accessToken = application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN];
             }
-            else if (!String.IsNullOrEmpty(context.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+            else if (!String.IsNullOrEmpty(application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
             {
-                accessToken = context.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+                accessToken = application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD];
             }
             //如果从QueryString里面获取不到
             if(String.IsNullOrEmpty(accessToken))
             { 
                 //从Form里面获取
-                if (!String.IsNullOrEmpty(context.Request.Form[ConstVariables.CALL_ACCESS_TOKEN]))
+                if (!String.IsNullOrEmpty(application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN]))
                 {
-                    accessToken = context.Request.Form[ConstVariables.CALL_ACCESS_TOKEN];
+                    accessToken = application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN];
                 }
-                else if (!String.IsNullOrEmpty(context.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+                else if (!String.IsNullOrEmpty(application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
                 {
-                    accessToken = context.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+                    accessToken = application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD];
                 }
             }
             return accessToken;

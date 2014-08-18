@@ -3,7 +3,9 @@
   <common.setting>
     <url value="http://192.168.72.166:8881/metis/" />
     <host value="192.168.72.166:8881" />
+    <sender value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
     <debug value="true" />
+    <console value="false" />
   </common.setting>
 
   <gatherer.apicall enabled="true">

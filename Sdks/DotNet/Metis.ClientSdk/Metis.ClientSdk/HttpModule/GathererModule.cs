@@ -1,4 +1,5 @@
-﻿using Metis.ClientSdk.Gatherer;
+﻿using Metis.ClientSdk.Console;
+using Metis.ClientSdk.Gatherer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,25 @@ namespace Metis.ClientSdk
     /// </summary>
     public class GathererModule : IHttpModule
     {
+        private ConsoleGatherer consoleGatherer;
+        
         public void Init(HttpApplication application)
         {
             //绑定事件
             application.BeginRequest += BeginRequestOccur;
             application.EndRequest += EndRequestOccur;
+            //实例化ConsoleGatherer, 对象空判断,防止多次被实例化
+            if(consoleGatherer == null)
+                consoleGatherer = new ConsoleGatherer();
         }
         /// <summary>
         /// 开始请求时执行
         /// </summary>
         void BeginRequestOccur(object sender, EventArgs e)
         {
+            //开始执行请求时,优先处理Console的请求 
+            consoleGatherer.BeginRequest();
+            //开始正常流程
             HttpApplication app = (HttpApplication)sender;
             HttpContext context = app.Context;
             //如果API Call采集器可用

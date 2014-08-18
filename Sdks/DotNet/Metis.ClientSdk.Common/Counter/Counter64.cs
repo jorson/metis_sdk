@@ -9,22 +9,23 @@ namespace Metis.ClientSdk.Counter
     public class Counter64
     {
         private string key;
+        private string grouping;
         private Int64 counter = 0L;
 
         internal Counter64(string key)
+            : this(key, String.Empty)
+        {
+        }
+        internal Counter64(string key, string grouping)
         {
             if (String.IsNullOrWhiteSpace(key))
-            {
                 throw new ArgumentNullException(key);
-            }
-
             this.key = key;
+            this.grouping = String.IsNullOrEmpty(grouping) ? "none" : grouping;
         }
 
-        public string Key
-        {
-            get { return key; }
-        }
+        public string Key { get { return key; } }
+        public string Grouping { get { return grouping; } }
         public Int64 Counter
         {
             get

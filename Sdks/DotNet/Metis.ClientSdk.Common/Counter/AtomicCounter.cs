@@ -57,6 +57,26 @@ namespace Metis.ClientSdk.Counter
             var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k));
             counter.Decrement(num);
         }
+        public int Increase32(string key, string grouping)
+        {
+            var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k, grouping));
+            return counter.Increment();
+        }
+        public int Increase32(string key, string grouping, Int32 num)
+        {
+            var counter = mapCounter32.GetOrAdd(key, (k) => new Counter32(k, grouping));
+            return counter.Increment(num);
+        }
+        public long Increase64(string key, string grouping)
+        {
+            var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k, grouping));
+            return counter.Increment();
+        }
+        public long Increase64(string key, string grouping, Int64 num)
+        {
+            var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k, grouping));
+            return counter.Increment(num);
+        }
         public long Increase64(string key)
         {
             var counter = mapCounter64.GetOrAdd(key, (k) => new Counter64(k));
@@ -110,6 +130,15 @@ namespace Metis.ClientSdk.Counter
             IList<KeyValuePair<string, Int64>> datas = new List<KeyValuePair<string, Int64>>();
             datas.AddRange(mapCounter32.ToArray().Select(o => new KeyValuePair<string, Int64>(o.Key, o.Value.Counter)));
             datas.AddRange(mapCounter64.ToArray().Select(o=>new KeyValuePair<string,Int64>(o.Key, o.Value.Counter)));
+            return datas;
+        }
+        public IList<Tuple<string, string, Int64>> GetAllWithGrouping()
+        {
+            IList<Tuple<string, string, Int64>> datas = new List<Tuple<string, string, Int64>>();
+            datas.AddRange(mapCounter32.ToArray().Select(o =>
+                new Tuple<string, string, Int64>(o.Key, o.Value.Grouping, o.Value.Counter)));
+            datas.AddRange(mapCounter64.ToArray().Select(o => 
+                new Tuple<string, string, Int64>(o.Key, o.Value.Grouping, o.Value.Counter)));
             return datas;
         }
         public void Clear()

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Senders\BaseHttpSender.cs" />
     <Compile Include="Senders\CountHttpSender.cs" />
     <Compile Include="Senders\LocalFileSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

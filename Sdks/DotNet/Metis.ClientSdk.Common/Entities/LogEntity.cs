@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using Metis.ClientSdk.Counter;
 
 namespace Metis.ClientSdk.Entities
 {
-    public abstract class LogEntity : ILogEntity
+    public abstract class LogEntity
     {
         long ipAddress = 0;
         DateTime logDate = new DateTime();
@@ -31,9 +32,7 @@ namespace Metis.ClientSdk.Entities
         /// 调用端IP地址
         /// </summary>
         public long IpAddress { get { return ipAddress; } protected set { ipAddress = value; } }
-
         public DateTime CallTimestamp { get { return logDate; } protected set { logDate = value; } }
-
         protected void CheckPropertyType()
         {
             var allProperty = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
@@ -42,9 +41,26 @@ namespace Metis.ClientSdk.Entities
                 if (property.PropertyType != typeof(String) &&
                     property.PropertyType != typeof(Int32) &&
                     property.PropertyType != typeof(Int64) &&
-                    property.PropertyType != typeof(DateTime))
-                    throw new NotSupportedException("日志实体中的属性只能是String, Int32, Int64, Datetime");
+                    property.PropertyType != typeof(DateTime) &&
+                    property.PropertyType.BaseType.Name.ToLower() != "enum")
+                    throw new NotSupportedException("日志实体中的属性只能是String, Int32, Int64, Datetime或枚举类型");
             }
+        }
+        /// <summary>
+        /// 标记成功
+        /// </summary>
+        internal virtual void Ack()
+        {
+            AtomicCounter.Instance.Increase32(String.Format("log_entry_{0}_ack", this.LogType),
+                String.Format("log_entry_{0}", this.LogType));
+        }
+        /// <summary>
+        /// 标记失败
+        /// </summary>
+        internal virtual void Fail()
+        {
+            AtomicCounter.Instance.Increase32(String.Format("log_entry_{0}_fail", this.LogType),
+                String.Format("log_entry_{0}", this.LogType));
         }
     }
 }

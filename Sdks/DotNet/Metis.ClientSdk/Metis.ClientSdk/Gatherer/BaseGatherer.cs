@@ -12,10 +12,10 @@ namespace Metis.ClientSdk.Gatherer
     internal abstract class BaseGatherer
     {
         //当前IIS的部署环境
-        static WebServerType iisVersion = WebServerType.Unknown;
-        bool debugRequest = false;
+        private static WebServerType iisVersion = WebServerType.Unknown;
+        private bool debugRequest = false;
         //当前请求的上下文
-        protected HttpContext context;
+        protected HttpApplication application;
 
         static BaseGatherer()
         {
@@ -25,6 +25,14 @@ namespace Metis.ClientSdk.Gatherer
         /// 当前IIS的部署环境
         /// </summary>
         protected static WebServerType IISVersion { get { return iisVersion; } }
+        /// <summary>
+        /// 采集者名称
+        /// </summary>
+        public abstract string Name { get; }
+        /// <summary>
+        /// 采集者描述
+        /// </summary>
+        public abstract string Description { get; }
         /// <summary>
         /// 是否为Debug的请求
         /// </summary>
@@ -50,19 +58,19 @@ namespace Metis.ClientSdk.Gatherer
         /// </summary>
         protected void HandleDebugInfo()
         {
-            if (context.Request.RawUrl.Equals("/gatherer/debug"))
+            if (application.Request.RawUrl.Equals("/gatherer/debug"))
             {
                 debugRequest = true;
                 if (!GathererContext.Current.IsDebug)
                 {
-                    context.Response.Write("Gatherer DEBUG mode is off");
-                    context.Response.End();
+                    application.Response.Write("Gatherer DEBUG mode is off");
+                    application.CompleteRequest();
                 }
                 else
                 {
                     string logInfos = GathererLogger.Instance.Read();
-                    context.Response.Write(logInfos);
-                    context.Response.End();
+                    application.Response.Write(logInfos);
+                    application.CompleteRequest();
                 }
             }
         }

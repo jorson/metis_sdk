@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Metis_Console</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style>
+       body{
+           padding-top:70px;
+       }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Metis Console</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="navbar navbar-default">
+            <span class="navbar-brand">System Info</span>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                Server IP:<span id="serverIp"></span>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Server Name:<span id="serverName"></span>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Host Name:<span id="hostName"></span>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Is64Bit:<span id="is64bit"></span>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                OsVersion:<span id="osVersion"></span>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Processor Count:<span id="processCount"></span>
+            </li>
+        </ul>
+        <div class="navbar navbar-default">
+            <span class="navbar-brand">Gatherer List</span>
+        </div>
+        <div>
+            <div class="list-group" id="gatherers">
+            </div>
+        </div>
+
+        <div class="navbar navbar-default">
+            <a class="navbar-brand" href="#">Counter</a>
+        </div>
+        <div id="counters"></div>
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+        (function ($) {
+            var operator = {
+                getSysInfo: function () {
+                    $.getJSON("sysinfo", function (data) {
+                        $("#serverIp").html(data.IP);
+                        $("#serverName").html(data.ServerName);
+                        $("#hostName").html(data.Host);
+                        $("#is64bit").html(data.Is64Bit);
+                        $("#osVersion").html(data.OsVersion);
+                        $("#processCount").html(data.ProcessorCount);
+                    });
+                },
+                getGatherer: function () {
+                    $.getJSON("gatherers", function (data) {
+                        var output = "<div class='list-group-item'>";
+                        if (data.length == 0) {
+                            output = "<div class='alert alert-success'>none gatherer available</div>"
+                        } else {
+                            $.each(data, function (da) {
+                                output += "<h3 class='list-group-item-heading'>" + data[da]["Name"] + "</h3>";
+                                output += "<h4 class='list-group-item-text'>" + data[da]["Description"] + "</h4>";
+                                output += "<table class='table table-striped table-hover'><thead><tr><th>Setting Key</th><th>Setting Value</th><th>operate</th></tr></thead>";
+                                output += "<tbody>"
+                                $.each(data[da], function (key) {
+                                    if (key != "Name" && key != "Description") {
+                                        output += "<tr><td>" + key + "</td><td>" + data[da][key] + "</td><td>operate</td></tr>"
+                                    }
+                                });
+                                output += "</tbody>";
+                            });
+                            output += "</div>";
+                        }
+                        $("#gatherers").html(output);
+                    });
+                },
+                getCounter: function () {
+                    $.getJSON("counters", function (data) {
+                        var output = "<table class='table table-striped table-hover'><thead><tr><th>Name</th><th>Acked</th><th>Failed</th></tr></thead><tbody>";
+                        if (data.length == 0) {
+                            output = "<div class='alert alert-success'>none counter available</div>"
+                        } else {
+                            $.each(data, function (da) {
+                                output += "<tr><td>" + data[da]["GroupKey"] + "</td><td>" + data[da]["AckCount"] + "</td><td>" + data[da]["FailCount"] + "</td></tr>";
+                            });
+                            output += "</tbody>";
+                        }
+                        $("#counters").html(output);
+                    });
+                }
+            };
+            var pageModel = {
+                init: function () {
+                    operator.getSysInfo();
+                    operator.getGatherer();
+                    operator.getCounter();
+                }
+            };
+            $(function () {
+                pageModel.init();
+            })
+        })(jQuery);
+    </script>
+</body>
+</html>

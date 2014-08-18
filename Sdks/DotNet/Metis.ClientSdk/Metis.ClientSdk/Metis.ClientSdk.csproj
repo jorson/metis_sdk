@@ -46,6 +46,7 @@
     <Compile Include="ConfigSection\GathererConfigNode.cs" />
     <Compile Include="ConfigSection\GathererConfigurationException.cs" />
     <Compile Include="ConfigSection\GathererSection.cs" />
+    <Compile Include="Console\ConsoleGatherer.cs" />
     <Compile Include="ConstVariables.cs" />
     <Compile Include="Gatherer\ApiCallGatherer.cs" />
     <Compile Include="Gatherer\BaseGatherer.cs" />
@@ -62,7 +63,6 @@
     <Compile Include="IGathererDataPrivoder.cs" />
     <Compile Include="Logger\GathererLogger.cs" />
     <Compile Include="GathererContext.cs" />
-    <Compile Include="LogSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,6 +75,10 @@
       <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
       <Name>Metis.ClientSdk.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
+      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
+      <Name>Metis.ClientSdk.Sender</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -83,7 +87,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Console\" />
+    <EmbeddedResource Include="Resources\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
