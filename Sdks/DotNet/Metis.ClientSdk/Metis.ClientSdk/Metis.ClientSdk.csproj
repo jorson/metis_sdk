@@ -60,7 +60,6 @@
     <Compile Include="Filter\WhitelistUrlFilter.cs" />
     <Compile Include="Gatherer\UnhandleExceptionGatherer.cs" />
     <Compile Include="HttpModule\GathererModule.cs" />
-    <Compile Include="IGathererDataPrivoder.cs" />
     <Compile Include="Logger\GathererLogger.cs" />
     <Compile Include="GathererContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

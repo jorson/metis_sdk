@@ -5,7 +5,7 @@
     <host value="192.168.72.166:8881" />
     <sender value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
     <debug value="true" />
-    <console value="false" />
+    <console value="true" />
   </common.setting>
 
   <gatherer.apicall enabled="true">
@@ -14,7 +14,7 @@
     <whiteList value="v1|v2|v3" />
   </gatherer.apicall>
 
-  <gatherer.pagevisit enabled="false">
+  <gatherer.pagevisit enabled="true">
     <extendDataPrivoder value="Metis.DemoSite.Privoder.VisitGathererPrivoder, Metis.DemoSite" />
     <useFilter value="false" />
   </gatherer.pagevisit>

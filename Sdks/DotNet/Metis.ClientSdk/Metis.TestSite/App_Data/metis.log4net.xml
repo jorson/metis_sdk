@@ -8,11 +8,12 @@
   <appender name="comboAppender" type="Metis.ClientSdk.LogProvider.ComboAppender, Metis.ClientSdk.LogProvider">
     <param name="LocalSender" value="Metis.ClientSdk.Sender.LocalFileSender, Metis.ClientSdk.Sender" />
     <param name="RemoteSender" value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
-    <param name="RemoteUrl" value="http://192.168.72.171:8081/test" />
-    <param name="RemoteHost" value="192.168.72.171:8081" />
+    <param name="RemoteUrl" value="http://192.168.72.181:8080/" />
+    <param name="RemoteHost" value="192.168.72.181:8080" />
     <param name="LocalUrl" value="~/App_Data" />
     <param name="LogPrefix" value="DemoLog_" />
     <param name="MaxQueueSize" type="int" value="5000" />
     <param name="SendInterval" type="int" value="10" />
+    <param name="ExtendDataProvider" value="Metis.DemoSite.Privoder.ApiCallGathererPrivoder, Metis.DemoSite" />
   </appender>
 </log4net>

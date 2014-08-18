@@ -62,6 +62,7 @@
     <Compile Include="Extends\HttpResponseExtend.cs" />
     <Compile Include="Extends\StringExtend.cs" />
     <Compile Include="IBatchAppender.cs" />
+    <Compile Include="IGathererDataPrivoder.cs" />
     <Compile Include="ISingleSender.cs" />
     <Compile Include="Entities\LogEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

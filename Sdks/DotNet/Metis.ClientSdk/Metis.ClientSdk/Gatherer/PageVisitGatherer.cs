@@ -14,6 +14,8 @@ namespace Metis.ClientSdk.Gatherer
     internal class PageVisitGatherer : BaseGatherer
     {
         public const string GATHERER_KEY = "__PAGE_VIEW_GATHERER__";
+        private static string gathererName = "页面访问信息采集者";
+        private static string gathererDesc = "用于记录页面被访问的信息";
         //用于判断页面请求类型的字符常量
         const string HTML_CONTENT = "text/html";
         //是否跳过请求
@@ -60,11 +62,11 @@ namespace Metis.ClientSdk.Gatherer
         public bool IsEnabled { get { return config.IsEnabled; } }
         public override string Name
         {
-            get { return "页面访问信息采集者"; }
+            get { return gathererName; }
         }
         public override string Description
         {
-            get { return "用于用户范围页面的信息"; }
+            get { return gathererDesc; }
         }
         public override void BeginRequest()
         {
@@ -115,7 +117,31 @@ namespace Metis.ClientSdk.Gatherer
         }
         internal static object GetCurrentSetting()
         {
-            return null;
+            if (config == null)
+                return null;
+            PageVisitGathererConfig realConfig = (PageVisitGathererConfig)config;
+            if (realConfig.IsEnabled)
+            {
+                return new
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    GathererEnabled = realConfig.IsEnabled,
+                    FilterEnabled = realConfig.UseFilter,
+                    FilterType = realConfig.UseFilter ? realConfig.UrlFilter.GetType().FullName : "",
+                    BlackList = realConfig.UseFilter ? realConfig.BlackList : "",
+                    ExtendDataPrivoder = realConfig.ExtendDataPrivoder.GetType().FullName
+                };
+            }
+            else
+            {
+                return new
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    GathererEnabled = realConfig.IsEnabled,
+                };
+            }
         }
     }
 }

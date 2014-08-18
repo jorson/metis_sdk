@@ -14,6 +14,7 @@ namespace Metis.ClientSdk.LogProvider
     public class ComboAppender : AppenderSkeleton
     {
         ISingleSender localSender, remoteSender;
+        IGathererDataPrivoder extendDataPrivoder;
 
         public ComboAppender()
             : base()
@@ -51,6 +52,10 @@ namespace Metis.ClientSdk.LogProvider
         /// 发送间隔,当根据时间发送时,表示发送时间的间隔, 当根据数量发送是, 表示队列达到该数量后, 发送数据
         /// </summary>
         public int SendInterval { get; set; }
+        /// <summary>
+        /// 额外数据获取者
+        /// </summary>
+        public string ExtendDataProvider { get; set; }
 
         protected override void Append(LoggingEvent loggingEvent)
         {
@@ -58,7 +63,12 @@ namespace Metis.ClientSdk.LogProvider
             {
                 SysLogEntity entry = new SysLogEntity();
                 entry.TryParseLoggingEvent(loggingEvent);
-                remoteSender.DoAppend(entry);
+                //远程的Sender
+                if (extendDataPrivoder != null)
+                {
+                    entry.AccessToken = extendDataPrivoder.GetAccesstoken();
+                    remoteSender.DoAppend(entry);
+                }
                 //本地Sender
                 if (localSender != null)
                     localSender.DoAppend(entry);
@@ -113,6 +123,19 @@ namespace Metis.ClientSdk.LogProvider
                     }
                     localSenderConfig.Add("LogPrefix", LogPrefix);
                     localSender.Prepare(localSenderConfig);
+                }
+                //初始化额外数据提供者
+                if (!String.IsNullOrEmpty(ExtendDataProvider))
+                {
+                    object objPrivoder = FastActivator.Create(ExtendDataProvider);
+                    if (objPrivoder is IGathererDataPrivoder)
+                    {
+                        extendDataPrivoder = (IGathererDataPrivoder)objPrivoder;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("配置中的extendDataPrivoder对象没有实现IGathererDataPrivoder接口");
+                    }
                 }
             }
             catch (Exception ex)
