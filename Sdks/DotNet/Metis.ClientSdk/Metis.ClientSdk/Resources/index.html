@@ -51,7 +51,8 @@
         </div>
 
         <div class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Counter</a>
+            <span class="navbar-brand">Counter</span>
+            <button id="refresh_counter" type="button" class="btn btn-default navbar-btn navbar-right">refresh all</button>
         </div>
         <div id="counters"></div>
     </div>
@@ -115,6 +116,11 @@
                 init: function () {
                     operator.getSysInfo();
                     operator.getGatherer();
+                    operator.getCounter();
+
+                    $("#refresh_counter").click(pageModel.refreshCounter);
+                },
+                refreshCounter: function () {
                     operator.getCounter();
                 }
             };

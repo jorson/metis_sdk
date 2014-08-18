@@ -39,3 +39,4 @@ Sdks/DotNet/Metis.ClientSdkConsole/obj/
 *.user
 Sdks/DotNet/Metis.ClientSdk.Common/obj/
 Sdks/DotNet/Metis.ClientSdk.Sender/obj/
+Sdks/DotNet/Metis.LogProvider/Metis.LogProvider/bin/
