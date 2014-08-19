@@ -53,6 +53,7 @@
     <Compile Include="Gatherer\Config\ApiCallGathererConfig.cs" />
     <Compile Include="Gatherer\Config\BaseGathererConfig.cs" />
     <Compile Include="Gatherer\Config\PageVisitGathererConfig.cs" />
+    <Compile Include="Gatherer\Config\UnhandleExceptionGathererConfig.cs" />
     <Compile Include="Gatherer\PageVisitGatherer.cs" />
     <Compile Include="Filter\AllPassUrlFilter.cs" />
     <Compile Include="Filter\BlacklistUrlFilter.cs" />

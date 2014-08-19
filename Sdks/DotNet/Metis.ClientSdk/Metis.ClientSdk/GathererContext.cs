@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace Metis.ClientSdk
 {
@@ -28,7 +29,8 @@ namespace Metis.ClientSdk
         //日志发送者; TODO: 这个东西先写在Context, 这样所有的Gatherer都必须用同一种Sender,
         //这显然是反人类的, 后续重构考虑将Sender移到Gatherer
         static ISingleSender sender;
-
+        //JSON序列化
+        static JavaScriptSerializer serializer = new JavaScriptSerializer();
         static GathererContext()
         {
             //这里初始化通用的配置
@@ -257,8 +259,21 @@ namespace Metis.ClientSdk
         /// <param name="ex">异常对象</param>
         public void AppendException(string accesstoken, Exception ex, string message = "")
         {
-            ExceptionEntity entry = new ExceptionEntity(message, ex);
+            SysLogEntity entry = new SysLogEntity()
+            {
+                LogLevel = LogLevel.ERROR,
+                LogMessage = message,
+                Logger = "UnhandlerExceptionGatherer"
+            };
+            //设置AccessToken
             entry.AccessToken = accesstoken;
+            CallStack callstack = new CallStack();
+            //设置访问上下文的信息
+            entry.SetContextInfo(callstack);
+            //设置异常相关的信息
+            entry.SetExceptionInfo(callstack, ex);
+            //序列化对象
+            entry.CallInfo = serializer.Serialize(callstack);
             sender.DoAppend(entry);
         }
         /// <summary>

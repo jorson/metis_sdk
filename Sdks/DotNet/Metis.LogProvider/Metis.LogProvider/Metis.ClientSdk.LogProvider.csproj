@@ -33,8 +33,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\Metis.ClientSdk\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Nd.Tool">
-      <HintPath>ExtendDll\Nd.Tool.dll</HintPath>
+    <Reference Include="Nd.Tool, Version=1.2.1.17605, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Metis.ClientSdk\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

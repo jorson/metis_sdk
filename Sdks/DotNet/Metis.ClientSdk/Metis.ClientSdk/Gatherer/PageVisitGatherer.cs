@@ -111,10 +111,9 @@ namespace Metis.ClientSdk.Gatherer
         public override void Dispose()
         {
         }
-        public override void ExceptionOccur()
-        {
-            throw new NotSupportedException();
-        }
+        /// <summary>
+        /// 获取当前采集者的配置(这个方法存在大量的重复问题,后续需要进行优化)
+        /// </summary>
         internal static object GetCurrentSetting()
         {
             if (config == null)

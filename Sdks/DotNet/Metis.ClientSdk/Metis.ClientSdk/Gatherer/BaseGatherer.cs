@@ -37,9 +37,9 @@ namespace Metis.ClientSdk.Gatherer
         /// 是否为Debug的请求
         /// </summary>
         protected bool DebugRequest { get { return debugRequest; } }
-        public abstract void BeginRequest();
-        public abstract void EndRequest();
-        public abstract void ExceptionOccur();
+        public virtual void BeginRequest() { }
+        public virtual void EndRequest() { }
+        public virtual void ExceptionOccur() { }
         public abstract void Dispose();
         /// <summary>
         /// 获取URL中?之前的字符串
@@ -73,6 +73,64 @@ namespace Metis.ClientSdk.Gatherer
                     application.CompleteRequest();
                 }
             }
+        }
+
+        protected void GetCallAccessToken(BaseGathererConfig config, 
+            out string callAccesstoken, out int callAppId)
+        {
+            //获取扩展数据
+            var extendData = config.ExtendDataPrivoder.GetExtendData(HttpContext.Current);
+
+            callAccesstoken = GetCallAppAccesstoken();
+            //如果还是空的
+            if (String.IsNullOrWhiteSpace(callAccesstoken))
+            {
+                //如果从上下文中获取不到调用端的AccessToken
+                if (extendData.ContainsKey(ConstVariables.CALL_ACCESS_TOKEN))
+                {
+                    callAccesstoken = extendData[ConstVariables.CALL_ACCESS_TOKEN].ToString();
+                }
+                //如果还是空
+                if (String.IsNullOrWhiteSpace(callAccesstoken))
+                {
+                    //检查是否存在CallAppId
+                    if (extendData.ContainsKey(ConstVariables.CALL_APP_ID))
+                    {
+                        Int32.TryParse(extendData[ConstVariables.CALL_APP_ID].ToString(), out callAppId);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 从Request中获取调用APP的Accesstoken
+        /// </summary>
+        protected string GetCallAppAccesstoken()
+        {
+            string accessToken = String.Empty;
+            //从QueryString里面获取
+            if (!String.IsNullOrEmpty(application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN]))
+            {
+                accessToken = application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN];
+            }
+            else if (!String.IsNullOrEmpty(application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+            {
+                accessToken = application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+            }
+            //如果从QueryString里面获取不到
+            if (String.IsNullOrEmpty(accessToken))
+            {
+                //从Form里面获取
+                if (!String.IsNullOrEmpty(application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN]))
+                {
+                    accessToken = application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN];
+                }
+                else if (!String.IsNullOrEmpty(application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+                {
+                    accessToken = application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+                }
+            }
+            return accessToken;
         }
     }
 }

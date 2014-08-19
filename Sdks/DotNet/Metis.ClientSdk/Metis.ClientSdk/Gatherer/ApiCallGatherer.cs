@@ -19,7 +19,7 @@ namespace Metis.ClientSdk.Gatherer
         //是否跳过请求
         bool skipRequest = false;
         //模块的配置
-        protected static BaseGathererConfig config;
+        protected static ApiCallGathererConfig config;
         List<int> writeBytes = new List<int>();
 
         /// <summary>
@@ -80,10 +80,10 @@ namespace Metis.ClientSdk.Gatherer
                 return;
            
             //如果启用URL过滤器
-            if (((ApiCallGathererConfig)config).UseFilter && ((ApiCallGathererConfig)config).UrlFilter != null)
+            if (config.UseFilter && config.UrlFilter != null)
             {
                 //如果不是需要处理的URL
-                if (!((ApiCallGathererConfig)config).UrlFilter.IsAllowed(application.Request.RawUrl))
+                if (!config.UrlFilter.IsAllowed(application.Request.RawUrl))
                 {
                     this.skipRequest = true;
                     return;
@@ -133,7 +133,8 @@ namespace Metis.ClientSdk.Gatherer
 
             string accesstoken = "", callAccesstoken = "";
             int callAppId = 0;
-            GetAccessTokenAndCallAccessToken(out accesstoken, out callAccesstoken, out callAppId);
+            accesstoken = config.ExtendDataPrivoder.GetAccesstoken();
+            GetCallAccessToken(out callAccesstoken, out callAppId);
 
             //推送数据
             GathererContext.Current.AppendApiCall(
@@ -141,44 +142,48 @@ namespace Metis.ClientSdk.Gatherer
                 callUrl, application.Response.StatusCode,
                 responseTime: duration, requestSize: requestSize, responseSize: responseSize);
         }
-        public override void ExceptionOccur()
-        {
-            throw new NotSupportedException();
-        }
         public override void Dispose()
         {
             if (!config.IsEnabled)
                 return;
         }
+        /// <summary>
+        /// 获取当前采集者的配置(这个方法存在大量的重复问题,后续需要进行优化)
+        /// </summary>
         internal static object GetCurrentSetting()
         {
             if (config == null)
                 return null;
             ApiCallGathererConfig realConfig = (ApiCallGathererConfig)config;
-            return new
+            if (realConfig.IsEnabled)
             {
-                Name = gathererName,
-                Description = gathererDesc,
-                GathererEnabled = realConfig.IsEnabled,
-                FilterEnabled = realConfig.UseFilter,
-                FilterType = realConfig.UrlFilter.GetType().FullName,
-                Whitelist = realConfig.WhiteList,
-                ExtendDataPrivoder = realConfig.ExtendDataPrivoder.GetType().FullName
-            };
+                return new
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    GathererEnabled = realConfig.IsEnabled,
+                    FilterEnabled = realConfig.UseFilter,
+                    FilterType = realConfig.UseFilter ? realConfig.UrlFilter.GetType().FullName : "",
+                    WhiteList = realConfig.UseFilter ? realConfig.WhiteList : "",
+                    ExtendDataPrivoder = realConfig.ExtendDataPrivoder.GetType().FullName
+                };
+            }
+            else
+            {
+                return new
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    GathererEnabled = realConfig.IsEnabled,
+                };
+            }
         }
-        /// <summary>
-        /// 尝试从配置的扩展数据提供者对象中获取信息
-        /// </summary>
-        void GetAccessTokenAndCallAccessToken(out string accesstoken, out string callAccesstoken, out int callAppId)
-        {
-            if (config.ExtendDataPrivoder == null)
-                throw new ArgumentNullException("没有指定有效的ExtendDataPrivoder");
 
+        private void GetCallAccessToken(out string callAccesstoken, out int callAppId)
+        {
             callAppId = 0;
-            accesstoken = config.ExtendDataPrivoder.GetAccesstoken();
             //获取扩展数据
             var extendData = config.ExtendDataPrivoder.GetExtendData(HttpContext.Current);
-
             callAccesstoken = GetCallAppAccesstoken();
             //如果还是空的
             if (String.IsNullOrWhiteSpace(callAccesstoken))
@@ -203,7 +208,7 @@ namespace Metis.ClientSdk.Gatherer
         /// <summary>
         /// 从Request中获取调用APP的Accesstoken
         /// </summary>
-        string GetCallAppAccesstoken()
+        private string GetCallAccessToken()
         {
             string accessToken = String.Empty;
             //从QueryString里面获取
@@ -216,8 +221,8 @@ namespace Metis.ClientSdk.Gatherer
                 accessToken = application.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD];
             }
             //如果从QueryString里面获取不到
-            if(String.IsNullOrEmpty(accessToken))
-            { 
+            if (String.IsNullOrEmpty(accessToken))
+            {
                 //从Form里面获取
                 if (!String.IsNullOrEmpty(application.Request.Form[ConstVariables.CALL_ACCESS_TOKEN]))
                 {

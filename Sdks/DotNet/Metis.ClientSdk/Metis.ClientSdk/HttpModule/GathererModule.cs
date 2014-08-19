@@ -14,15 +14,33 @@ namespace Metis.ClientSdk
     public class GathererModule : IHttpModule
     {
         private ConsoleGatherer consoleGatherer;
-        
+        private static bool hasInited = false;
         public void Init(HttpApplication application)
         {
-            //绑定事件
-            application.BeginRequest += BeginRequestOccur;
-            application.EndRequest += EndRequestOccur;
-            //实例化ConsoleGatherer, 对象空判断,防止多次被实例化
-            if(consoleGatherer == null)
+            if (!hasInited)
+            {
+                hasInited = true;
+                //绑定事件
+                application.BeginRequest += BeginRequestOccur;
+                application.EndRequest += EndRequestOccur;
+                //所有未被捕获的异常的处理
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                //实例化ConsoleGatherer
                 consoleGatherer = new ConsoleGatherer();
+            }
+        }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 当未被处理的异常发生时
+        /// </summary>
+        void ErrorOccur(object sender, EventArgs e)
+        {
+            HttpApplication application = (HttpApplication)sender;
+            
         }
         /// <summary>
         /// 开始请求时执行

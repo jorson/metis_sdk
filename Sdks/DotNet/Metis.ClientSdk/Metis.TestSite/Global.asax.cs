@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -12,6 +13,23 @@ namespace Metis.DemoSite
     // 请访问 http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+        static bool hasInit = false;
+
+        public override void Init()
+        {
+            if (!hasInit)
+            {
+                hasInit = true;
+                base.Init();
+                base.Error += MvcApplication_Error;
+            }
+        }
+
+        void MvcApplication_Error(object sender, EventArgs e)
+        {
+            System.Diagnostics.Trace.WriteLine("Exception handled by Error");
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -24,6 +42,8 @@ namespace Metis.DemoSite
             string configPath =
                 Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["log4net.config"]);
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(configPath));
+
+            
         }
     }
 }
