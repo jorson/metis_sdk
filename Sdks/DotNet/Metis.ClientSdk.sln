@@ -5,19 +5,19 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk", "Metis.ClientSdk\Metis.ClientSdk.csproj", "{E7DE5456-493F-494D-99A5-8FEFCA1B5F89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkTest", "..\Metis.ClientSdkTest\Metis.ClientSdkTest.csproj", "{2F2DCC2A-69A5-401D-B128-E747938ED7EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkTest", "Metis.ClientSdkTest\Metis.ClientSdkTest.csproj", "{2F2DCC2A-69A5-401D-B128-E747938ED7EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkConsole", "..\Metis.ClientSdkConsole\Metis.ClientSdkConsole.csproj", "{DFD51C2C-42EA-43EB-B224-A37475577CDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdkConsole", "Metis.ClientSdkConsole\Metis.ClientSdkConsole.csproj", "{DFD51C2C-42EA-43EB-B224-A37475577CDE}"
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Metis.Design", "Metis.Design\Metis.Design.modelproj", "{1A699136-E798-45E3-B7B1-3E823ED44848}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.TestSite", "Metis.TestSite\Metis.TestSite.csproj", "{12505836-3F95-48A0-B086-323F44765622}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.LogProvider", "..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj", "{E69B816F-0B8F-497D-884E-F657CE08A990}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.LogProvider", "Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj", "{E69B816F-0B8F-497D-884E-F657CE08A990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Sender", "..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj", "{5C9293DD-37A9-458E-8D39-FCE11BB566D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Sender", "Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj", "{5C9293DD-37A9-458E-8D39-FCE11BB566D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Common", "..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj", "{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metis.ClientSdk.Common", "Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj", "{7A6582F0-DC15-497E-92D8-F90F2A16CCBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
