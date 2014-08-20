@@ -55,7 +55,7 @@
     <Compile Include="UserEntry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk\Metis.ClientSdk.csproj">
+    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
       <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
       <Name>Metis.ClientSdk</Name>
     </ProjectReference>

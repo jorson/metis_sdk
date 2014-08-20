@@ -71,16 +71,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
-      <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
-      <Name>Metis.ClientSdk.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
-      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
-      <Name>Metis.ClientSdk.Sender</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -88,6 +78,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
+      <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
+      <Name>Metis.ClientSdk.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
+      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
+      <Name>Metis.ClientSdk.Sender</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

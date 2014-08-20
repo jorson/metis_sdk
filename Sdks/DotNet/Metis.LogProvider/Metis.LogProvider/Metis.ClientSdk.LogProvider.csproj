@@ -31,11 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\Metis.ClientSdk\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Nd.Tool, Version=1.2.1.17605, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Metis.ClientSdk\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
+    <Reference Include="Nd.Tool">
+      <HintPath>..\..\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -59,6 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
       <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
       <Name>Metis.ClientSdk.Common</Name>
@@ -67,9 +69,6 @@
       <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
       <Name>Metis.ClientSdk.Sender</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

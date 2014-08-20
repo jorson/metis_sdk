@@ -94,7 +94,7 @@ namespace Metis.ClientSdk.Console
                 OsVersion = Environment.OSVersion.ToString(),
                 ProcessorCount = Environment.ProcessorCount
             });
-            WriteJsonContent(sysinfo);
+            WriteContent(sysinfo, true);
         }
         /// <summary>
         /// 处理获取Gatherer列表的请求
@@ -112,7 +112,7 @@ namespace Metis.ClientSdk.Console
                 settingList.Add(pageVisitSetting);
             if (unhandleExSetting != null)
                 settingList.Add(unhandleExSetting);
-            WriteJsonContent(serializer.Serialize(settingList));
+            WriteContent(serializer.Serialize(settingList), true);
         }
         /// <summary>
         /// 处理获取Counter列表的请求
@@ -135,7 +135,7 @@ namespace Metis.ClientSdk.Console
                     FailCount = failCount.Value
                 };
             }));
-            WriteJsonContent(result);
+            WriteContent(result, true);
         }
         private string LoadHtmlFileFromRes(string resName)
         {
@@ -144,23 +144,11 @@ namespace Metis.ClientSdk.Console
                 return "can't found resource! resource name is " + resName;
             return resObj.ToString();
         }
-        private void WriteJsonContent(string content)
+        private void WriteContent(string content, bool isJson = false)
         {
-            application.Response.ContentType = "application/joson; charset=UTF-8";
-            application.Response.Write(content);
-        }
-        private void WriteContent(string content)
-        {
-            if (application.Request.AcceptTypes != null && application.Request.AcceptTypes.Length > 0)
-            {
-                var raw = application.Request.AcceptTypes.Contains("raw");
-                //if (!raw)
-                //{
-                //    content = content.Replace("\r\n", "<br/>");
-                //    content = content.Replace(" ", "&nbsp;");
-                //}
-            }
-            application.Response.ContentType = "text/html; charset=UTF-8";
+            application.Response.ContentType = isJson 
+                ? "application/joson; charset=UTF-8"
+                : "text/html; charset=UTF-8";
             application.Response.Write(content);
         }
     }

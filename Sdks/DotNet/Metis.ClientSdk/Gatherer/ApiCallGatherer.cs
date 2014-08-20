@@ -184,7 +184,7 @@ namespace Metis.ClientSdk.Gatherer
             callAppId = 0;
             //获取扩展数据
             var extendData = config.ExtendDataPrivoder.GetExtendData(HttpContext.Current);
-            callAccesstoken = GetCallAppAccesstoken();
+            callAccesstoken = GetCallAccessToken();
             //如果还是空的
             if (String.IsNullOrWhiteSpace(callAccesstoken))
             {

@@ -65,7 +65,11 @@ namespace Metis.ClientSdk.Gatherer
             if (lastEx == null)
                 return;
             //获取异常的类型 
-            var exName = lastEx.GetType().FullName.Split('.').Last();
+            var exName = lastEx.GetType().FullName.ToLower();
+            //如果排除所有异常类型, 且在特别类型中找不到
+            if (config.ExceptAllException && !config.specialExceptionType.ContainsKey(exName))
+                return;
+
             var isExcept = config.ExceptExceptionType.Exists((o) => 
             {
                 return o.Equals(exName, StringComparison.CurrentCultureIgnoreCase); 

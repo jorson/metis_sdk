@@ -18,4 +18,15 @@
     <extendDataPrivoder value="Metis.DemoSite.Privoder.VisitGathererPrivoder, Metis.DemoSite" />
     <useFilter value="false" />
   </gatherer.pagevisit>
+
+  <gatherer.unhandle enabled="true">
+    <extendDataPrivoder value="Metis.DemoSite.Privoder.ApiCallGathererPrivoder, Metis.DemoSite" />
+    <excepts>
+      <except type="DemoException" />
+      <except type="BussinessException" />
+    </excepts>
+    <specials>
+      <special type="SpecialException" level="DEBUG"/>
+    </specials>
+  </gatherer.unhandle>
 </metis.gatherer>

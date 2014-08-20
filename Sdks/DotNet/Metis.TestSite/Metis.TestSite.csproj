@@ -184,24 +184,6 @@
     <Content Include="Areas\Visit\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
-      <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
-      <Name>Metis.ClientSdk.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
-      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
-      <Name>Metis.ClientSdk.Sender</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
-      <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
-      <Name>Metis.ClientSdk.LogProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
-      <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
-      <Name>Metis.ClientSdk</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +191,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Logger\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
+      <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
+      <Name>Metis.ClientSdk.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
+      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
+      <Name>Metis.ClientSdk.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
+      <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
+      <Name>Metis.ClientSdk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
+      <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
+      <Name>Metis.ClientSdk.LogProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
