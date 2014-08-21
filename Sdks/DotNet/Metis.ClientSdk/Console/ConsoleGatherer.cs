@@ -24,7 +24,7 @@ namespace Metis.ClientSdk.Console
 
         public ConsoleGatherer()
         {
-            if (HttpContext.Current.IsAvailable())
+            if (HttpContext.Current == null)
                 throw new ArgumentNullException("application");
             this.application = HttpContext.Current.ApplicationInstance;
             //添加处理过程

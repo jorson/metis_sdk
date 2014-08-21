@@ -154,18 +154,18 @@ namespace Metis.ClientSdk.Gatherer
         {
             if (config == null)
                 return null;
-            ApiCallGathererConfig realConfig = (ApiCallGathererConfig)config;
-            if (realConfig.IsEnabled)
+
+            if (config.IsEnabled)
             {
                 return new
                 {
                     Name = gathererName,
                     Description = gathererDesc,
-                    GathererEnabled = realConfig.IsEnabled,
-                    FilterEnabled = realConfig.UseFilter,
-                    FilterType = realConfig.UseFilter ? realConfig.UrlFilter.GetType().FullName : "",
-                    WhiteList = realConfig.UseFilter ? realConfig.WhiteList : "",
-                    ExtendDataPrivoder = realConfig.ExtendDataPrivoder.GetType().FullName
+                    GathererEnabled = config.IsEnabled,
+                    FilterEnabled = config.UseFilter,
+                    FilterType = config.UseFilter ? config.UrlFilter.GetType().FullName : "",
+                    WhiteList = config.UseFilter ? config.WhiteList : "",
+                    ExtendDataPrivoder = config.ExtendDataPrivoder.GetType().FullName
                 };
             }
             else
@@ -174,7 +174,7 @@ namespace Metis.ClientSdk.Gatherer
                 {
                     Name = gathererName,
                     Description = gathererDesc,
-                    GathererEnabled = realConfig.IsEnabled,
+                    GathererEnabled = config.IsEnabled,
                 };
             }
         }

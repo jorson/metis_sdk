@@ -257,11 +257,13 @@ namespace Metis.ClientSdk
         /// </summary>
         /// <param name="message">额外异常信息</param>
         /// <param name="ex">异常对象</param>
-        public void AppendException(string accesstoken, Exception ex, string message = "")
+        /// <param name="accesstoken">accesstoken</param>
+        /// <param name="level">日志级别</param>
+        public void AppendException(string accesstoken, Exception ex, string message = "", LogLevel level = LogLevel.ERROR)
         {
             SysLogEntity entry = new SysLogEntity()
             {
-                LogLevel = LogLevel.ERROR,
+                LogLevel = level,
                 LogMessage = message,
                 Logger = "UnhandlerExceptionGatherer"
             };

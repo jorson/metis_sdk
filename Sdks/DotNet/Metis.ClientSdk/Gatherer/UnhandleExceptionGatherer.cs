@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Metis.ClientSdk.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,19 +70,22 @@ namespace Metis.ClientSdk.Gatherer
             //如果排除所有异常类型, 且在特别类型中找不到
             if (config.ExceptAllException && !config.specialExceptionType.ContainsKey(exName))
                 return;
-
+            //查找异常类型是不是被排除的 
             var isExcept = config.ExceptExceptionType.Exists((o) => 
             {
-                return o.Equals(exName, StringComparison.CurrentCultureIgnoreCase); 
+                return o.Equals(exName); 
             });
             //如果是需要排除的异常
             if (isExcept)
                 return;
             //获取accesstoken
             string accesstoken = config.ExtendDataPrivoder.GetAccesstoken();
+            //检查是否是需要进行特别标记级别的异常
+            LogLevel level = LogLevel.ERROR;
+            config.specialExceptionType.TryGetValue(exName, out level);
             //推送数据
             GathererContext.Current.AppendException(accesstoken, lastEx, 
-                "this is message from unhandle exception gatherer");
+                "this is a exception that captured by unhandle exception gatherer", level);
         }
         public override void Dispose()
         {
@@ -91,7 +95,34 @@ namespace Metis.ClientSdk.Gatherer
         /// </summary>
         internal static object GetCurrentSetting()
         {
-            return null;
+            if (config == null)
+                return null;
+
+            if (config.IsEnabled)
+            {
+                string exceptTypes = String.Join(",", config.ExceptExceptionType.ToArray());
+                var specialList = config.specialExceptionType.Select(o => 
+                    String.Format("{0}-{1}", o.Key, o.Value.ToString()));
+                string specialTypes = String.Join(",", specialList.ToArray());
+                return new 
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    ExceptAll = config.ExceptAllException,
+                    ExceptTypes = exceptTypes,
+                    SpecialTypes = specialTypes,
+                    ExtendDataPrivoder = config.ExtendDataPrivoder.GetType().FullName
+                };
+            }
+            else
+            {
+                return new
+                {
+                    Name = gathererName,
+                    Description = gathererDesc,
+                    GathererEnabled = config.IsEnabled,
+                };
+            }
         }
     }
 }
