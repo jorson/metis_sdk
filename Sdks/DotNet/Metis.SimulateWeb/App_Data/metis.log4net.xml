@@ -7,8 +7,8 @@
   <appender name="comboAppender" type="Metis.ClientSdk.LogProvider.ComboAppender, Metis.ClientSdk.LogProvider">
     <param name="LocalSender" value="Metis.ClientSdk.Sender.LocalFileSender, Metis.ClientSdk.Sender" />
     <param name="RemoteSender" value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
-    <param name="RemoteUrl" value="http://test.metis.huayu.nd:8881/" />
-    <param name="RemoteHost" value="test.metis.huayu.nd:8881" />
+    <param name="RemoteUrl" value="http://api.data.91open.com/" />
+    <param name="RemoteHost" value="api.data.91open.com" />
     <param name="LocalUrl" value="~/App_Data" />
     <param name="LogPrefix" value="DemoLog_" />
     <param name="MaxQueueSize" type="int" value="5000" />
