@@ -7,6 +7,7 @@ using Metis.ClientSdk;
 using Metis.ClientSdk.Entities;
 using log4net.Core;
 using log4net.Appender;
+using System.Web;
 
 
 namespace Metis.ClientSdk.LogProvider

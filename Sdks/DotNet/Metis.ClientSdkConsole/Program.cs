@@ -8,6 +8,7 @@ using System.IO;
 using System.Resources;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Metis.ClientSdkConsole
 {
@@ -67,21 +68,67 @@ namespace Metis.ClientSdkConsole
             //Console.WriteLine(c.Count);
             //Console.WriteLine(array.Count());
 
-            CancellationTokenSource cts = new CancellationTokenSource();
-            TaskFactory taskFactory = new TaskFactory(cts.Token);
+            //CancellationTokenSource cts = new CancellationTokenSource();
+            //TaskFactory taskFactory = new TaskFactory(cts.Token);
 
-            for (int i = 0; i < 10; i++)
-            {
-                taskFactory.StartNew<int>(SendData, i);
-            }    
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    taskFactory.StartNew<int>(SendData, i);
+            //}    
 
-            Console.WriteLine("This is Next Out Put");
-            Thread.Sleep(100);
-            cts.Cancel();
+            //Console.WriteLine("This is Next Out Put");
+            //Thread.Sleep(100);
+            //cts.Cancel();
+            WriteLogger();
             Console.Read();
         }
 
-        private static int SendData(object data)
+        static void WriteLogger()
+        {
+            //初始化配置
+            string configPath = ConfigurationManager.AppSettings["log4net.config"];
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(configPath));
+            //获取Logger
+            log4net.ILog logger = log4net.LogManager.GetLogger("comboAppender");
+            //开始循环写入数据
+            int total = 1000;
+            int debug = 0, info = 0, warn = 0, error = 0, fatal = 0;
+            for (int i = 0; i < total; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    logger.Debug("这是一个中文的DEBUG消息");
+                    debug++;
+                }
+                else if (i % 3 == 0)
+                {
+                    logger.Info("这是一个中文的测试消息");
+                    info++;
+                }
+                else if (i % 5 == 0)
+                {
+                    logger.Warn("这是一个中文的WarN消息");
+                    warn++;
+                }
+                else if (i % 7 == 0)
+                {
+                    logger.Error("这是一个中文的ERROR消息", new ArgumentException("Argument is ERROR"));
+                    error++;
+                }
+                else
+                {
+                    logger.Fatal("这是一个中文的Fatal消息", new ArgumentNullException("Argument is NULL"));
+                    fatal++;
+                }
+                Console.Write("#");
+                Thread.Sleep(100);
+            }
+            Console.WriteLine("");
+            Console.WriteLine(String.Format("Debug:{0},Info:{1},Warn:{2},Error:{3},Fatal:{4}",
+                debug, info, warn, error, fatal));
+        }
+
+        static int SendData(object data)
         {
             Console.WriteLine("Thread Data " + data);
             Console.WriteLine("This is SendData" + Thread.CurrentThread.ManagedThreadId);

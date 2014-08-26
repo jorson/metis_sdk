@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{12505836-3F95-48A0-B086-323F44765622}</ProjectGuid>
+    <ProjectGuid>{5A873C68-6FCE-4DB8-93D8-7C144097565C}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Metis.DemoSite</RootNamespace>
-    <AssemblyName>Metis.DemoSite</AssemblyName>
+    <RootNamespace>Metis.SimulateWeb</RootNamespace>
+    <AssemblyName>Metis.SimulateWeb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -39,20 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MvcApplication1\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Nd.Tool">
+      <HintPath>..\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -79,6 +71,9 @@
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -123,34 +118,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Logger\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Logger\LoggerAreaRegistration.cs" />
-    <Compile Include="Areas\V1\Controllers\OAuthController.cs" />
-    <Compile Include="Areas\V1\V1AreaRegistration.cs" />
-    <Compile Include="Areas\Visit\Controllers\VisitController.cs" />
-    <Compile Include="Areas\Visit\VisitAreaRegistration.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Areas\SysLog\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SysLog\SysLogAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Privoder\ApiCallGathererPrivoder.cs" />
-    <Compile Include="Privoder\DemoModule.cs" />
-    <Compile Include="Privoder\StreamWatcher.cs" />
-    <Compile Include="Privoder\VisitGathererPrivoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\metis.gatherer.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="App_Data\metis.log4net.xml" />
     <Content Include="Global.asax" />
     <Content Include="readme.txt" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -160,38 +143,22 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Logger\Models\" />
-    <Folder Include="Areas\Logger\Views\Shared\" />
-    <Folder Include="Areas\V1\Models\" />
-    <Folder Include="Areas\V1\Views\Shared\" />
-    <Folder Include="Areas\Visit\Models\" />
-    <Folder Include="Areas\Visit\Views\Shared\" />
+    <Folder Include="Areas\SysLog\Models\" />
+    <Folder Include="Areas\SysLog\Views\Shared\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Shared\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\V1\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Visit\Views\Visit\HasAccesstoken.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Visit\Views\Visit\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Visit\Views\Visit\NoAccesstoken.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Visit\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\metis.log4net.xml" />
+    <Content Include="Areas\SysLog\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Logger\Views\Web.config" />
+    <Content Include="Views\Shared\_BaseLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysLog\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
@@ -202,17 +169,13 @@
       <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
       <Name>Metis.ClientSdk.Sender</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
-      <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
-      <Name>Metis.ClientSdk</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
+    <ProjectReference Include="..\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
       <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
       <Name>Metis.ClientSdk.LogProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Logger\Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\release.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -230,9 +193,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>29463</DevelopmentServerPort>
+          <DevelopmentServerPort>7151</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:29463/</IISUrl>
+          <IISUrl>http://localhost:18777/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

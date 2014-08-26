@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "应用日志模块验证页面";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<form>
+    <div class="form-group">
+        <label for="message">日志信息</label>
+        <input type="text" id="message" value="这是一个测试信息" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="level">
+            日志级别
+        </label>
+        <select id="level" class="form-control">
+            <option value="1">DEBUG</option>
+            <option value="2">INFO</option>
+            <option value="3">WARN</option>
+            <option value="4">ERROR</option>
+            <option value="5">FATAL</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="times">发送次数</label>
+        <input type="text" id="times" value="10" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="split">发送间隔</label>
+        <input type="text" id="split" value="1000" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button id="sender" value="发送" class="btn btn-default form-control">发送</button>
+        <br /><br />
+        <button id="stop" value="停止" class="btn btn-info form-control">停止</button>
+    </div>
+    <div class="form-group">
+        <textarea id="retinfo" style="height:500px; background-color:white;" readonly="readonly" class="form-control"></textarea>
+    </div>
+</form>
+
+<script>
+    (function ($) {
+        var operator = {
+            sendLog: function (data, success) {
+                $.ajax({
+                    url: "home/log",
+                    type: "POST",
+                    data: data,
+                    dataType: "json",
+                    success: success
+                });
+            }
+        };
+        var viewer = {
+            intervalId : 0,
+            init: function () {
+                var self = this;
+                $("#sender").click(function () {
+                    self.send();
+                });
+                $("#stop").click(function () {
+                    self.stop();
+                })
+            },
+            send: function () {
+                var split = $("#split").val();
+                var count = 0;
+                var max_count = $("#times").val();
+
+                if (split < 500) {
+                    alert("Mini Send Split is 500");
+                    return;
+                }
+                //开始定时发送
+                intervalId = setInterval(function () {
+                    if (count == max_count) {
+                        clearInterval(intervalId);
+                        return;
+                    } else {
+                        var data = {
+                            message: $("#message").val(),
+                            level: $("#level").val()
+                        };
+                        operator.sendLog(data, function (data) {
+                            if (data.Result) {
+                                $("#retinfo").append(data.Message + "\r\n");
+                            } else {
+                                $("#retinfo").append("Write Log Error!\r\n");
+                            }
+                        });
+                        count++;
+                    }
+                    
+                }, split);
+            },
+            stop: function () {
+                clearInterval(intervalId);
+            }
+        };
+        $(function () {
+            viewer.init();
+        })
+    })(jQuery);
+</script>

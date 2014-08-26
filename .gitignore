@@ -47,3 +47,9 @@ Sdks/DotNet/Metis.TestSite/bin/
 Sdks/DotNet/packages/
 Sdks/DotNet/Metis.ClientSdk/obj/
 Sdks/DotNet/Metis.TestSite/obj/
+Sdks/DotNet/Metis.SimulateWeb/bin/Metis.SimulateWeb.dll.config
+Sdks/DotNet/Metis.LogProvider/bin/Debug/log4net.xml
+Sdks/DotNet/Metis.SimulateWeb/bin/
+Sdks/DotNet/Metis.LogProvider/bin/
+Sdks/DotNet/Metis.LogProvider/obj/
+Sdks/DotNet/Metis.SimulateWeb/obj/

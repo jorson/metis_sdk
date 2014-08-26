@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<log4net debug="true" xsi:noNamespaceSchemaLocation="http://csharptest.net/downloads/schema/log4net.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <root>
+    <level value="ALL"/>
+    <appender-ref ref="comboAppender"/>
+  </root>
+  <appender name="comboAppender" type="Metis.ClientSdk.LogProvider.ComboAppender, Metis.ClientSdk.LogProvider">
+    <param name="LocalSender" value="Metis.ClientSdk.Sender.LocalFileSender, Metis.ClientSdk.Sender" />
+    <param name="RemoteSender" value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
+    <param name="RemoteUrl" value="http://test.metis.huayu.nd:8881/" />
+    <param name="RemoteHost" value="test.metis.huayu.nd:8881" />
+    <param name="LocalUrl" value="~/App_Data" />
+    <param name="LogPrefix" value="DemoLog_" />
+    <param name="MaxQueueSize" type="int" value="5000" />
+    <param name="SendInterval" type="int" value="5" />
+    <param name="ExtendDataProvider" value="Metis.SimulateWeb.ApiCallGathererPrivoder, Metis.SimulateWeb" />
+  </appender>
+</log4net>

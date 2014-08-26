@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace Metis.ClientSdk.Sender
 {
@@ -67,7 +68,8 @@ namespace Metis.ClientSdk.Sender
                 var firstLog = logs.FirstOrDefault();
                 //添加需要发送的数据
                 data.Add("TerminalCode", firstLog.TerminalCode.ToString());
-                data.Add("MultiData", serializer.SerializeMutil(firstLog.GetType(), logs));
+                var sendData = serializer.SerializeMutil(firstLog.GetType(), logs);
+                data.Add("MultiData", HttpUtility.UrlEncode(sendData));
                 //获取需要添加的路径
                 var postUrl = GetRequestUrl(firstLog.LogType.ToLower());
                 if (httpClient.Headers.AllKeys.Contains("AccessToken"))

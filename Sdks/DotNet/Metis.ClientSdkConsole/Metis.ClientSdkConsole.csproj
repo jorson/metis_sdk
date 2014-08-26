@@ -32,9 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiCallGathererPrivoder.cs" />
     <Compile Include="DemoConcurrentQueue.cs" />
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
@@ -55,13 +61,8 @@
     <Compile Include="UserEntry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
-      <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
-      <Name>Metis.ClientSdk</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -71,6 +72,25 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
+      <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
+      <Name>Metis.ClientSdk.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.ClientSdk.Sender\Metis.ClientSdk.Sender.csproj">
+      <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
+      <Name>Metis.ClientSdk.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
+      <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
+      <Name>Metis.ClientSdk.LogProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="metis.log4net.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

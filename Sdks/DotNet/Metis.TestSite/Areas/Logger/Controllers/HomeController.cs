@@ -10,6 +10,11 @@ namespace Metis.DemoSite.Areas.Logger.Controllers
     {
         static log4net.ILog logger = log4net.LogManager.GetLogger("comboAppender");
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public string Debug()
         {
             logger.Debug("this is debug level");
