@@ -22,6 +22,7 @@
     </div>
     <div class="form-group">
         <label for="times">发送次数</label>
+
         <input type="text" id="times" value="10" class="form-control" />
     </div>
     <div class="form-group">
@@ -29,9 +30,9 @@
         <input type="text" id="split" value="1000" class="form-control" />
     </div>
     <div class="form-group">
-        <button id="sender" value="发送" class="btn btn-default form-control">发送</button>
+        <button id="sender" value="发送" type="button" class="btn btn-default form-control">发送</button>
         <br /><br />
-        <button id="stop" value="停止" class="btn btn-info form-control">停止</button>
+        <button id="stop" value="停止" type="button" class="btn btn-info form-control">停止</button>
     </div>
     <div class="form-group">
         <textarea id="retinfo" style="height:500px; background-color:white;" readonly="readonly" class="form-control"></textarea>
@@ -43,7 +44,7 @@
         var operator = {
             sendLog: function (data, success) {
                 $.ajax({
-                    url: "home/log",
+                    url: "/home/log",
                     type: "POST",
                     data: data,
                     dataType: "json",
@@ -75,6 +76,7 @@
                 intervalId = setInterval(function () {
                     if (count == max_count) {
                         clearInterval(intervalId);
+                        alert("发送完成");
                         return;
                     } else {
                         var data = {

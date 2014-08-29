@@ -22,6 +22,8 @@ namespace Metis.SimulateWeb
 
             string configPath = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["log4net.config"]);
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(configPath));
+
+            Nd.CloudClient.ClientContext.Setup();
         }
     }
 }

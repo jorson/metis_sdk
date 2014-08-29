@@ -115,8 +115,15 @@ namespace Metis.ClientSdk.LogProvider
                     IDictionary<string, object> localSenderConfig = new Dictionary<string, object>();
                     if (System.Web.HttpContext.Current != null)
                     {
-                        localSenderConfig.Add("LocalUrl",
-                            System.Web.HttpContext.Current.Server.MapPath(LocalUrl));
+                        if (LocalUrl.Contains("/"))
+                        {
+                            localSenderConfig.Add("LocalUrl",
+                                System.Web.HttpContext.Current.Server.MapPath(LocalUrl));
+                        }
+                        else
+                        {
+                            localSenderConfig.Add("LocalUrl", LocalUrl);
+                        }
                     }
                     else
                     {

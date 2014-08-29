@@ -55,17 +55,21 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Nd.CloudClient">
-      <HintPath>..\packages\Nd.CloudClient.1.0.22\lib\net40\Nd.CloudClient.dll</HintPath>
+    <Reference Include="Nd.CloudClient, Version=1.2.1.30288, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nd.CloudClient.1.2.1-bate1\lib\net40\Nd.CloudClient.dll</HintPath>
     </Reference>
-    <Reference Include="Nd.OAuthClient">
-      <HintPath>..\packages\Nd.OAuthClient.1.0.32\lib\net40\Nd.OAuthClient.dll</HintPath>
+    <Reference Include="Nd.OAuthClient, Version=1.2.0.38945, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nd.OAuthClient.1.2.0-bate1\lib\net40\Nd.OAuthClient.dll</HintPath>
     </Reference>
-    <Reference Include="Nd.Platform">
-      <HintPath>..\packages\Nd.Platform.1.0.126\lib\net40\Nd.Platform.dll</HintPath>
+    <Reference Include="Nd.Platform, Version=1.2.0.18276, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nd.Platform.1.2.0-bate5\lib\net40\Nd.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Nd.Tool">
-      <HintPath>..\packages\Nd.Tool.1.2.1\lib\net40\Nd.Tool.dll</HintPath>
+    <Reference Include="Nd.Tool, Version=1.2.4.25283, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nd.Tool.1.2.4-bate2\lib\net40\Nd.Tool.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -151,9 +155,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\metis.log4net.xml" />
+    <Content Include="App_Data\metis.log4net.debug.xml" />
+    <Content Include="App_Data\metis.log4net.release.xml" />
     <Content Include="Global.asax" />
-    <Content Include="readme.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -182,6 +186,9 @@
     <Content Include="Areas\SysLog\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\release.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Metis.ClientSdk.Common\Metis.ClientSdk.Common.csproj">
       <Project>{7a6582f0-dc15-497e-92d8-f90f2a16ccba}</Project>
       <Name>Metis.ClientSdk.Common</Name>
@@ -190,13 +197,14 @@
       <Project>{5c9293dd-37a9-458e-8d39-fce11bb566d1}</Project>
       <Name>Metis.ClientSdk.Sender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Metis.ClientSdk\Metis.ClientSdk.csproj">
+      <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
+      <Name>Metis.ClientSdk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
       <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
       <Name>Metis.ClientSdk.LogProvider</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\PublishProfiles\release.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

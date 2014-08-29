@@ -79,7 +79,15 @@ namespace Metis.ClientSdkConsole
             //Console.WriteLine("This is Next Out Put");
             //Thread.Sleep(100);
             //cts.Cancel();
-            WriteLogger();
+            //WriteLogger();
+
+            for (int i = 0; i < 2; i++)
+            {
+                Thread thread = new Thread(new ThreadStart(WriteLogger));
+                thread.IsBackground = true;
+                thread.Start();
+            }
+
             Console.Read();
         }
 
@@ -91,7 +99,7 @@ namespace Metis.ClientSdkConsole
             //获取Logger
             log4net.ILog logger = log4net.LogManager.GetLogger("comboAppender");
             //开始循环写入数据
-            int total = 1000;
+            int total = 600000000;
             int debug = 0, info = 0, warn = 0, error = 0, fatal = 0;
             for (int i = 0; i < total; i++)
             {
@@ -121,7 +129,7 @@ namespace Metis.ClientSdkConsole
                     fatal++;
                 }
                 Console.Write("#");
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
             Console.WriteLine("");
             Console.WriteLine(String.Format("Debug:{0},Info:{1},Warn:{2},Error:{3},Fatal:{4}",

@@ -17,16 +17,11 @@ namespace Metis.SimulateWeb
             {   
                 int id = 70;
                 Int32.TryParse(clientId, out id);
-                Nd.OAuthClient.TokenData data = new Nd.OAuthClient.ClientCredentialsTokenData(id, clientSecret);
+                var data = new Nd.OAuthClient.ClientCredentialsTokenData(id, clientSecret);
                 var result = Nd.OAuthClient.OAuthService.Authorize(data);
-                if (result.Data != null)
-                {
-                    return result.Data.AccessToken;
-                }
-                else
-                {
-                    return "69d63fadaee842a4a5cc575f8eeff707";
-                }
+                if (result.Code != 0)
+                    throw new Nd.OAuthClient.OAuthException("应用授权失败。" + result.Message);
+                return result.Data.AccessToken;
             }
             return accessGrant.AccessToken;
         }

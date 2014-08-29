@@ -111,6 +111,8 @@ namespace Metis.ClientSdk
                     //如果是字符串类型
                     if (proType == typeof(String))
                         v = FixToCsvString(v);
+                    if (proType == typeof(DateTime))
+                        v = ((DateTime)values[i]).ToString().Replace("-", "/");
                     dataBuilder.Append(v);
                 }
                 if (i != (properties.Count - 1))
