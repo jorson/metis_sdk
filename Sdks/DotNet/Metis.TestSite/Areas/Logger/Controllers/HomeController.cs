@@ -8,7 +8,7 @@ namespace Metis.DemoSite.Areas.Logger.Controllers
 {
     public class HomeController : Controller
     {
-        static log4net.ILog logger = log4net.LogManager.GetLogger("comboAppender");
+        static Nd.Tool.ILog logger = Nd.Tool.LogManager.GetLogger("demo.logger");
 
         public ActionResult Index()
         {

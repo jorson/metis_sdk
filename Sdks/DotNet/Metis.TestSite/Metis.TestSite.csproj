@@ -47,10 +47,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nd.Tool, Version=1.2.4.27702, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nd.Tool.1.2.4-bate5\lib\net40\Nd.Tool.dll</HintPath>
+    </Reference>
+    <Reference Include="Nd.Tool.Log4netProvider">
+      <HintPath>..\packages\Nd.Tool.Log4netProvider.1.2.0-bate1\lib\net40\Nd.Tool.Log4netProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MvcApplication1\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -134,7 +142,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Privoder\ApiCallGathererPrivoder.cs" />
-    <Compile Include="Privoder\DemoModule.cs" />
     <Compile Include="Privoder\StreamWatcher.cs" />
     <Compile Include="Privoder\VisitGathererPrivoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,7 +154,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="readme.txt" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -206,7 +215,7 @@
       <Project>{e7de5456-493f-494d-99a5-8fefca1b5f89}</Project>
       <Name>Metis.ClientSdk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Metis.LogProvider\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
+    <ProjectReference Include="..\Metis.LogProvider\Metis.ClientSdk.LogProvider.csproj">
       <Project>{e69b816f-0b8f-497d-884e-f657ce08a990}</Project>
       <Name>Metis.ClientSdk.LogProvider</Name>
     </ProjectReference>

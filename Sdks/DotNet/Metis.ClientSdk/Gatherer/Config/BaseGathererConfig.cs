@@ -11,7 +11,7 @@ namespace Metis.ClientSdk.Gatherer
         //当前采集器是否可用
         protected bool isEnabled = false;
         //扩展数据提供者 
-        protected static IGathererDataPrivoder extendDataPrivoder = null;
+        protected static IGathererDataProvider extendDataPrivoder = null;
         private string configSection;
 
         public BaseGathererConfig(string configSection)
@@ -29,7 +29,7 @@ namespace Metis.ClientSdk.Gatherer
         /// <summary>
         /// 扩展数据提供者 
         /// </summary>
-        public IGathererDataPrivoder ExtendDataPrivoder { get { return extendDataPrivoder; } }
+        public IGathererDataProvider ExtendDataPrivoder { get { return extendDataPrivoder; } }
 
         protected virtual void LoadConfig(GathererConfigNode configNode)
         {
@@ -51,8 +51,8 @@ namespace Metis.ClientSdk.Gatherer
             if (!String.IsNullOrEmpty(privoder))
             {
                 object objPrivoder = FastActivator.Create(privoder);
-                if (objPrivoder is IGathererDataPrivoder)
-                    extendDataPrivoder = (IGathererDataPrivoder)objPrivoder;
+                if (objPrivoder is IGathererDataProvider)
+                    extendDataPrivoder = (IGathererDataProvider)objPrivoder;
                 else
                     throw new ArgumentException("配置中的extendDataPrivoder对象没有实现IGathererDataPrivoder接口");
             }

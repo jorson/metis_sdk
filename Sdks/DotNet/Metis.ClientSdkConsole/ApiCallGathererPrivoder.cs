@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Metis.ClientSdkConsole
 {
-    public class ApiCallGathererPrivoder : Metis.ClientSdk.IGathererDataPrivoder
+    public class ApiCallGathererPrivoder : Metis.ClientSdk.IGathererDataProvider
     {
         public string GetAccesstoken()
         {

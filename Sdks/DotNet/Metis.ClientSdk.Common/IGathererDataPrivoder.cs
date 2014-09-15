@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Metis.ClientSdk
 {
-    public interface IGathererDataPrivoder
+    public interface IGathererDataProvider
     {
         /// <summary>
         /// 获取SDK无法获取到的日志数据

@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by Administrator on 14-8-29.
  */
-public class Counter32 {
+class Counter32 {
 
     private String key;
     private String group;

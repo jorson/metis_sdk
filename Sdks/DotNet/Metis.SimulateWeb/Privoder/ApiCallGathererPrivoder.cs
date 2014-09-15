@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Metis.SimulateWeb
 {
-    public class ApiCallGathererPrivoder : Metis.ClientSdk.IGathererDataPrivoder
+    public class ApiCallGathererPrivoder : Metis.ClientSdk.IGathererDataProvider
     {
         Nd.OAuthClient.AccessGrant accessGrant = null;
         string clientId = System.Configuration.ConfigurationManager.AppSettings["oauth.client.id"];

@@ -15,7 +15,7 @@ namespace Metis.ClientSdk.LogProvider
     public class ComboAppender : AppenderSkeleton
     {
         ISingleSender localSender, remoteSender;
-        IGathererDataPrivoder extendDataPrivoder;
+        IGathererDataProvider extendDataPrivoder;
 
         public ComboAppender()
             : base()
@@ -136,9 +136,9 @@ namespace Metis.ClientSdk.LogProvider
                 if (!String.IsNullOrEmpty(ExtendDataProvider))
                 {
                     object objPrivoder = FastActivator.Create(ExtendDataProvider);
-                    if (objPrivoder is IGathererDataPrivoder)
+                    if (objPrivoder is IGathererDataProvider)
                     {
-                        extendDataPrivoder = (IGathererDataPrivoder)objPrivoder;
+                        extendDataPrivoder = (IGathererDataProvider)objPrivoder;
                     }
                     else
                     {

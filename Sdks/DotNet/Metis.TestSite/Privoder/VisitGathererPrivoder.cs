@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Metis.DemoSite.Privoder
 {
-    public class VisitGathererPrivoder : Metis.ClientSdk.IGathererDataPrivoder
+    public class VisitGathererPrivoder : Metis.ClientSdk.IGathererDataProvider
     {
         public IDictionary<string, object> GetExtendData(HttpContext context)
         {
