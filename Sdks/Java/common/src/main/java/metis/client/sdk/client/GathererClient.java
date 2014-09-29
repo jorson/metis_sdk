@@ -11,6 +11,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -18,6 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.nio.client.HttpAsyncClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +45,17 @@ public class GathererClient {
 
     private int timeout = 2000;
     private Collection<Header> headers = null;
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
     private String host = "";
     private boolean async = false;
     private HttpClientConnectionManager manager;
 
     public GathererClient(int timeout) {
-        this(timeout, null, null, false);
+        this(timeout, new ArrayList<Header>(), null, false);
     }
 
     public GathererClient(int timeout, Collection<Header> headers, String host, boolean async) {
@@ -55,6 +63,11 @@ public class GathererClient {
         this.headers = headers;
         this.host = host;
         this.async = async;
+    }
+
+    public void setHeader(String key, String value) {
+        Header header = new BasicHeader(key, value);
+        this.headers.add(header);
     }
 
     protected CloseableHttpClient createHttpClient() {
@@ -155,5 +168,9 @@ public class GathererClient {
 
     public String httpGetAsync(String url) {
         return null;
+    }
+
+    public void httpPost(String url, Map<String, String> data) {
+
     }
 }

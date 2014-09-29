@@ -1,6 +1,5 @@
 package metis.client.sdk.utility;
 
-import com.sun.deploy.net.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.UnsupportedEncodingException;

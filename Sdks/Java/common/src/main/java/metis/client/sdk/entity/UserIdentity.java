@@ -7,6 +7,15 @@ public class UserIdentity {
     private String name = "";
     private boolean isAuthenticated = false;
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(name)
+                .append("/t")
+                .append(String.valueOf(isAuthenticated));
+        return builder.toString();
+    }
+
     public String getName() {
         return name;
     }

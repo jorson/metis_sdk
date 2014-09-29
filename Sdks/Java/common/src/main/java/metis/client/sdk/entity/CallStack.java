@@ -11,6 +11,26 @@ public class CallStack {
     private UserIdentity user;
     private ExceptionData exData;
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(absolutePath)
+                .append("/t")
+                .append(referrerUrl)
+                .append("/t")
+                .append(queryData)
+                .append("/t")
+                .append(formData);
+        if(user != null) {
+            builder.append(user.toString())
+                    .append("/t");
+        }
+        if(exData != null) {
+            builder.append(exData.toString());
+        }
+        return builder.toString();
+    }
+
     public String getAbsolutePath() {
         return absolutePath;
     }

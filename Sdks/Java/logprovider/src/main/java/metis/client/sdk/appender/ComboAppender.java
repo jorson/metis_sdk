@@ -2,18 +2,21 @@ package metis.client.sdk.appender;
 
 import metis.client.sdk.GathererDataProvider;
 import metis.client.sdk.SingleSender;
-import metis.client.sdk.entity.CallStack;
-import metis.client.sdk.entity.LogLevel;
-import metis.client.sdk.entity.SysLogEntity;
+import metis.client.sdk.entity.*;
 import metis.client.sdk.sender.SenderFactory;
 import metis.client.sdk.utility.Arguments;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
+import org.apache.log4j.spi.ThrowableInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,8 +54,20 @@ public class ComboAppender extends AppenderSkeleton {
     @Override
     protected void append(LoggingEvent loggingEvent) {
         try {
-            SysLogEntity entry = new SysLogEntity();
-
+            SysLogEntity entry = parseLoggingEvent(loggingEvent);
+            //如果exDataProvider不为空
+            if(extendDataProvider != null) {
+                String accessToken = extDataProvider.getAccesstoken();
+                entry.setAccessToken(accessToken);
+                rSender.doAppend(entry);
+            }
+            if(lSender != null) {
+                lSender.doAppend(entry);
+            }
+        } catch(Exception ex) {
+            if(logger.isErrorEnabled()) {
+                logger.error(TAG, "Append Entry Error" + ex.getMessage());
+            }
         }
     }
 
@@ -107,7 +122,7 @@ public class ComboAppender extends AppenderSkeleton {
         }
     }
 
-    private SysLogEntity parseLoggingEvent(LoggingEvent logEvent) {
+    private SysLogEntity parseLoggingEvent(LoggingEvent logEvent) throws IOException {
         if(logEvent == null) {
             throw new IllegalArgumentException("logEvent");
         }
@@ -117,12 +132,23 @@ public class ComboAppender extends AppenderSkeleton {
         entry.setLogLevel(transLogLevel(logEvent.getLevel()));
         entry.setLogger(logEvent.getLoggerName());
         //异常的错误信息
-        CallStack callStack = new CallStack();
-
-
+        CallStack callStack = setCallStackInfo();
+        ThrowableInformation throwInfo = logEvent.getThrowableInformation();
+        if(throwInfo != null) {
+            ExceptionData exData = new ExceptionData();
+            exData.setErrorMessage(throwInfo.getThrowable().getMessage());
+            exData.setExceptionType(throwInfo.getThrowable().getClass().getName());
+            exData.setCauseSource("FROM_JAVA");
+            exData.setCauseMethod(throwInfo.getThrowable().getCause().toString());
+            exData.setTraceStack(throwInfo.getThrowable().getStackTrace()[0].toString());
+            exData.setExtendMessage("NULL");
+            callStack.setExData(exData);
+        }
+        entry.setCallInfo(callStack.toString());
+        return entry;
     }
 
-    private CallStack setCallStackInfo() {
+    private CallStack setCallStackInfo() throws IOException {
 
         //如果没有调用GathererFilter来获取到当前的上下文对象
         if(!GathererHttpContext.isAvailable()) {
@@ -132,14 +158,27 @@ public class ComboAppender extends AppenderSkeleton {
         HttpServletRequest request = GathererHttpContext.getRequest();
 
         String refer = request.getHeader("Referer");
-
         callStack.setAbsolutePath(request.getRequestURI());
         if(!refer.isEmpty())
             callStack.setReferrerUrl(refer);
         callStack.setQueryData(request.getQueryString());
         if(request.getMethod().equalsIgnoreCase("post")) {
-            request.get
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(request.getInputStream()));
+            String formData = br.readLine();
+            callStack.setFormData(formData);
         }
+        UserIdentity ui = new UserIdentity();
+        Principal principal = request.getUserPrincipal();
+        if(principal == null) {
+            ui.setAuthenticated(false);
+            ui.setName("");
+        } else {
+            ui.setAuthenticated(true);
+            ui.setName(principal.getName());
+        }
+        callStack.setUser(ui);
+        return callStack;
     }
 
     private LogLevel transLogLevel(org.apache.log4j.Level level) {

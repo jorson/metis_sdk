@@ -11,6 +11,23 @@ public class ExceptionData {
     private String errorMessage = "";
     private String traceStack = "";
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(extendMessage)
+                .append("/t")
+                .append(exceptionType)
+                .append("/t")
+                .append(causeMethod)
+                .append("/t")
+                .append(causeSource)
+                .append("/t")
+                .append(errorMessage)
+                .append("/t")
+                .append(traceStack);
+        return builder.toString();
+    }
+
     public String getExtendMessage() {
         return extendMessage;
     }
