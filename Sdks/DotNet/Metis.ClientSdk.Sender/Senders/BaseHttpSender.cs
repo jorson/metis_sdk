@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Metis.ClientSdk.Sender
 {
-    internal class BaseHttpSender : ISingleSender
+    internal abstract class BaseHttpSender : ISingleSender
     {
         protected int maxLogEntry = 5000;
         protected int interval = 3;
@@ -18,11 +18,10 @@ namespace Metis.ClientSdk.Sender
         protected readonly int sendBatchSize = 500;
 
         protected readonly CsvSerializer serializer = new CsvSerializer();
-
-        protected ConcurrentQueue<LogEntity> logList = new ConcurrentQueue<LogEntity>();
         protected GaeaHttpClient httpClient = new GaeaHttpClient(2000);
         protected string gathererPath = String.Empty;
 
+        public abstract void DoAppend(LogEntity entry);
         public virtual void Prepare(IDictionary<string, object> config)
         {
             if (!config.Keys.Contains("GathererPath"))
@@ -41,14 +40,6 @@ namespace Metis.ClientSdk.Sender
             object objInterval = null;
             if (config.TryGetValue("SendInterval", out objInterval))
                 Int32.TryParse(objInterval.ToString(), out interval);
-        }
-        public virtual void DoAppend(LogEntity entry)
-        {
-            //当队列中的对象数量小于最大数量时
-            if (logList.Count < maxLogEntry)
-            {
-                logList.Enqueue(entry);
-            }
         }
         public virtual void Clear()
         {

@@ -17,6 +17,7 @@ namespace Metis.ClientSdk.Sender
     {
         private Timer timer = null;
         private bool running = false;
+        protected static ConcurrentQueue<LogEntity> logList = new ConcurrentQueue<LogEntity>();
 
         public TimerHttpSender(){ }
         public override void Prepare(IDictionary<string, object> config)
@@ -24,6 +25,14 @@ namespace Metis.ClientSdk.Sender
             base.Prepare(config);
             //初始化Timer
             timer = new Timer(new TimerCallback(SendLogs), null, interval * 1000, interval * 1000);
+        }
+        public override void DoAppend(LogEntity entry)
+        {
+            //当队列中的对象数量小于最大数量时
+            if (logList.Count < maxLogEntry)
+            {
+                logList.Enqueue(entry);
+            }
         }
         internal void SendLogs(object sender)
         {

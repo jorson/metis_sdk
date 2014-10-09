@@ -182,11 +182,11 @@ public class ComboAppender extends AppenderSkeleton {
     }
 
     private LogLevel transLogLevel(org.apache.log4j.Level level) {
-        if(level == Level.DEBUG) {
+        if(level.equals(Level.DEBUG)) {
             return LogLevel.DEBUG;
-        } else if(level == Level.INFO) {
+        } else if(level.equals(Level.INFO)) {
             return LogLevel.INFO;
-        } else if(level == Level.WARN) {
+        } else if(level.equals(Level.WARN)) {
             return LogLevel.WARN;
         } else if(level == Level.ERROR) {
             return LogLevel.ERROR;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <metis.gatherer>
   <common.setting>
-    <url value="http://192.168.72.166:8881/metis/" />
-    <host value="192.168.72.166:8881" />
+    <url value="http://test.metis.huayu.nd:8881/" />
+    <host value="test.metis.huayu.nd:8881" />
     <sender value="Metis.ClientSdk.Sender.TimerHttpSender, Metis.ClientSdk.Sender" />
     <debug value="true" />
     <console value="true" />
@@ -14,12 +14,12 @@
     <whiteList value="v1|v2|v3" />
   </gatherer.apicall>
 
-  <gatherer.pagevisit enabled="true">
+  <gatherer.pagevisit enabled="false">
     <extendDataPrivoder value="Metis.DemoSite.Privoder.VisitGathererPrivoder, Metis.DemoSite" />
     <useFilter value="false" />
   </gatherer.pagevisit>
 
-  <gatherer.unhandle enabled="true">
+  <gatherer.unhandle enabled="false">
     <extendDataPrivoder value="Metis.DemoSite.Privoder.ApiCallGathererPrivoder, Metis.DemoSite" />
     <excepts>
       <except type="DemoException" />

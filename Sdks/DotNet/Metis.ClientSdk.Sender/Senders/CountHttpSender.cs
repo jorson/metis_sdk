@@ -1,5 +1,6 @@
 ﻿using Metis.ClientSdk.Entities;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Metis.ClientSdk.Sender
     {
         CancellationTokenSource cancelSrc;
         TaskFactory taskFactory;
+        protected static ConcurrentQueue<LogEntity> logList = new ConcurrentQueue<LogEntity>();
 
         public CountHttpSender() 
         {
