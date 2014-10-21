@@ -19,6 +19,7 @@ namespace Metis.ClientSdk.Entities
         //调用堆栈
         private string callInfo = String.Empty;
         public SysLogEntity()
+            : base()
         {
             this.LogType = "syslog";
         }

@@ -317,5 +317,27 @@ namespace Metis.ClientSdk
             throw new ArgumentException(String.Format(unformattedMessage, args), innerException);
         }
 
+        public static void NotAllZero(params object[] numbers)
+        {
+            foreach(object num in numbers) 
+            {
+                if (num is Int16)
+                {
+                    if(((Int16)num)<= 0) 
+                        throw new ArgumentException("数组中存在数字小于等于0");
+                }
+                if (num is Int32)
+                {
+                    if(((Int32)num)<= 0) 
+                        throw new ArgumentException("数组中存在数字小于等于0");
+                }
+                if (num is Int64)
+                {
+                    if (((Int64)num) <= 0)
+                        throw new ArgumentException("数组中存在数字小于等于0");
+                }
+            }
+        }
+
     }
 }

@@ -105,42 +105,71 @@ namespace Metis.ClientSdk
         /// </summary>
         public int TerminalId { get { return terminalId; } protected set { terminalId = value; } }
 
-        #region 内部发送日志的方法
-
+        #region 开放进行显式调用的日志方法
         /// <summary>
         /// 添加登陆的日志
         /// </summary>
-        /// <param name="userId">登陆用户Id</param>
-        /// <param name="loginUrl">登陆来源地址</param>
-        internal void AppendLogin(long userId, string loginUrl)
+        /// <param name="userId">登陆用户的ID</param>
+        /// <param name="identityType">登陆类型</param>
+        /// <param name="solutionId">账号方案标识</param>
+        /// <param name="clientIp">上报端IP地址</param>
+        /// <param name="srcAppId">来源应用ID</param>
+        /// <param name="srcTerminalCode">来源终端编码</param>
+        /// <param name="loginTime">登陆时间</param>
+        public void AppendLogin(long userId, int identityType, int solutionId, long clientIp,
+            int srcAppId, int srcTerminalCode, DateTime loginTime)
         {
-            throw new NotImplementedException();
+            Arguments.NotAllZero(userId, identityType, solutionId, clientIp, srcAppId, srcTerminalCode);
+            string accessToken = GetAccessToken();
+            //只有AccessToken不为空的时候
+            if (!String.IsNullOrEmpty(accessToken))
+            {
+                //需要发送的日志
+                LoginEntity entry = new LoginEntity(clientIp, loginTime)
+                {
+                    UserId = userId,
+                    IdentityType = identityType,
+                    SolutionId = solutionId,
+                    SourceAppId = srcAppId,
+                    SourceTerminalCode = srcTerminalCode
+                };
+                GathererLogger.Instance.Write(entry.ToString());
+                sender.DoAppend(entry);
+            }
+            GathererLogger.Instance.Write(String.Format("[Login]Accesstoken Is Empty. UserId:{0},LogTime:{1}", userId, loginTime));
         }
         /// <summary>
         /// 添加注册的日志
         /// </summary>
-        /// <param name="accesstoken">当前注册用户的Accesstoken</param>
+        /// <param name="clientIP">客户端IP地址</param>
         /// <param name="registerMode">注册的模式</param>
-        public void AppendRegister(int registerMode, string accesstoken)
+        /// <param name="userId">注册用户ID</param>
+        /// <param name="appId">注册用户来源</param>
+        /// <param name="terminalCode">终端代码</param>
+        /// <param name="regTime">注册时间</param>
+        public void AppendRegister(int registerMode, long clientIP, long userId, 
+            int appId, int terminalCode, DateTime regTime)
         {
-            //获取应用的AccessToken
-            if (!HttpContext.Current.IsAvailable())
-                return;
-            if (String.IsNullOrEmpty(accesstoken))
-                return;
-
-            RegisterEntity entry = new RegisterEntity();
-            entry.AccessToken = accesstoken;
-            entry.RegisterMode = registerMode;
-
-            if (isDebug)
+            Arguments.NotAllZero(registerMode, clientIP, userId, appId, terminalCode);
+            string accessToken = GetAccessToken();
+            //只有AccessToken不为空的时候
+            if (!String.IsNullOrEmpty(accessToken))
             {
-                GathererLogger.Instance.Write(String.Format("Token:{0},RegisterMode:{1}",
-                    accesstoken, registerMode));
+                RegisterEntity entry = new RegisterEntity(clientIP, regTime)
+                {
+                    RegisterMode = registerMode,
+                    TerminalCode = terminalCode,
+                    AppId = appId,
+                    UserId = userId,
+                };
+                GathererLogger.Instance.Write(entry.ToString());
+                sender.DoAppend(entry);
             }
-
-            sender.DoAppend(entry);
+            GathererLogger.Instance.Write(String.Format("[Register]Accesstoken Is Empty. UserId:{0},LogTime:{1}", userId, regTime));
         }
+        #endregion
+
+        #region 内部发送日志的方法
         /// <summary>
         /// 添加资源使用的日志
         /// </summary>
@@ -288,10 +317,45 @@ namespace Metis.ClientSdk
         }
         #endregion 
 
+        #region 私有方法
         private void CheckInited()
         {
             if (hasInited)
                 throw new ArgumentException("采集器上下文已经初始化, 请不要重复初始化");
         }
+
+        private static string GetAccessToken()
+        {
+            if (!HttpContext.Current.IsAvailable())
+            {
+                return String.Empty;
+            }
+
+            string accessToken = String.Empty;
+            //从QueryString里面获取
+            if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN]))
+            {
+                accessToken = HttpContext.Current.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN];
+            }
+            else if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+            {
+                accessToken = HttpContext.Current.Request.QueryString[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+            }
+            //如果从QueryString里面获取不到
+            if (String.IsNullOrEmpty(accessToken))
+            {
+                //从Form里面获取
+                if (!String.IsNullOrEmpty(HttpContext.Current.Request.Form[ConstVariables.CALL_ACCESS_TOKEN]))
+                {
+                    accessToken = HttpContext.Current.Request.Form[ConstVariables.CALL_ACCESS_TOKEN];
+                }
+                else if (!String.IsNullOrEmpty(HttpContext.Current.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD]))
+                {
+                    accessToken = HttpContext.Current.Request.Form[ConstVariables.CALL_ACCESS_TOKEN_OLD];
+                }
+            }
+            return accessToken;
+        }
+        #endregion 
     }
 }

@@ -8,6 +8,7 @@ namespace Metis.ClientSdk.Entities
     internal class ApiCallEntity : LogEntity
     {
         public ApiCallEntity()
+            : base()
         {
             this.LogType = "api";
         }

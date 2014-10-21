@@ -50,6 +50,7 @@
     <Compile Include="Counter\Counter32.cs" />
     <Compile Include="Counter\Counter64.cs" />
     <Compile Include="Entities\ApiCallEntity.cs" />
+    <Compile Include="Entities\LoginEntity.cs" />
     <Compile Include="Entities\PageVisitEntity.cs" />
     <Compile Include="Entities\RegisterEntity.cs" />
     <Compile Include="Entities\ResourceUseEntity.cs" />

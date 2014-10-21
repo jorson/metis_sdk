@@ -11,6 +11,7 @@ namespace Metis.ClientSdk.Entities
         string ucCode = "auc";
 
         public PageVisitEntity()
+            : base()
         {
             this.LogType = "visit";
         }

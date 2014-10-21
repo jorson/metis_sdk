@@ -13,10 +13,15 @@ namespace Metis.ClientSdk.Entities
         DateTime logDate = new DateTime();
 
         protected LogEntity()
+            : this(Metis.ClientSdk.IpAddress.GetIPNumber(true), DateTime.Now)
+        {
+        }
+
+        protected LogEntity(long ipAddress, DateTime logDate)
         {
             CheckPropertyType();
-            logDate = DateTime.Now;
-            ipAddress = Metis.ClientSdk.IpAddress.GetIPNumber(true);
+            this.logDate = logDate;
+            this.ipAddress = ipAddress;
         }
 
         public string LogType { get; set; }

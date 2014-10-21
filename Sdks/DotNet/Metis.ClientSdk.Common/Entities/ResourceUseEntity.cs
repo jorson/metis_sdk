@@ -8,6 +8,7 @@ namespace Metis.ClientSdk.Entities
     internal class ResourceUseEntity : LogEntity
     {
         public ResourceUseEntity()
+            : base()
         {
             this.LogType = "Resource";
         }
